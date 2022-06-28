@@ -1,5 +1,6 @@
 package com.loyalty.jshan.web;
 
+import com.loyalty.jshan.domain.address.enumForAddress.AddressType;
 import com.loyalty.jshan.domain.contact.ContactRepository;
 import com.loyalty.jshan.domain.member.Member;
 import com.loyalty.jshan.domain.member.MemberRepository;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import com.loyalty.jshan.web.dto.address.AddressEnrollmentDto;
 import com.loyalty.jshan.web.dto.contact.ContactEnrollmentDto;
 import com.loyalty.jshan.web.dto.member.MemberEnrollmentDto;
 
@@ -48,6 +51,19 @@ public class MemberControllerTest {
         String mobileNumber = "010-2221-2509";
         String homePhoneNumber = "032-323-2509";
         String emailAddress = "jshan88@gmail.com";
+        AddressType addressType = AddressType.H;
+        String zipCode = "420-849";
+        String country = "Korea";
+        String address1 = "Goyang-si Dongsong-ro";
+        String address2 = "305-1502";
+
+        AddressEnrollmentDto addressDto = AddressEnrollmentDto.builder()
+                .addressType(addressType)
+                .zipCode(zipCode)
+                .country(country)
+                .address1(address1)
+                .address2(address2)
+                .build();
 
         ContactEnrollmentDto contactDto = ContactEnrollmentDto.builder()
                 .mobileNumber(mobileNumber)
@@ -59,6 +75,7 @@ public class MemberControllerTest {
                 .firstName(firstName)
                 .lastName(lastName)
                 .contactInfo(contactDto)
+                .addressInfo(addressDto)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/member";
@@ -74,5 +91,6 @@ public class MemberControllerTest {
 
         assertThat(members.get(0).getFirstName()).isEqualTo(firstName);
         assertThat(members.get(0).getContact().getEmailAddress()).isEqualTo(emailAddress);
+        assertThat(members.get(0).getAddress().getAddressType()).isEqualTo(AddressType.H);
     }
 }

@@ -1,6 +1,7 @@
 package com.loyalty.jshan.domain.member;
 
 import com.loyalty.jshan.domain.CommonEntity;
+import com.loyalty.jshan.domain.address.Address;
 import com.loyalty.jshan.domain.contact.Contact;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,11 +28,16 @@ public class Member extends CommonEntity {
     @JoinColumn(name = "contactId", referencedColumnName = "id")
     private Contact contact;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressId", referencedColumnName = "id")
+    private Address address;
+
     @Builder
-    public Member (String firstName, String lastName, Contact contact) {
+    public Member (String firstName, String lastName, Contact contact, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
+        this.address = address;
     }
 
 }

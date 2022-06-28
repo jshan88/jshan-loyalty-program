@@ -1,6 +1,7 @@
 package com.loyalty.jshan.web.dto.member;
 
 import com.loyalty.jshan.domain.member.Member;
+import com.loyalty.jshan.web.dto.address.AddressEnrollmentDto;
 import com.loyalty.jshan.web.dto.contact.ContactEnrollmentDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,12 +14,14 @@ public class MemberEnrollmentDto {
     private String firstName;
     private String lastName;
     private ContactEnrollmentDto contactInfo;
+    private AddressEnrollmentDto addressInfo;
 
     @Builder
-    public MemberEnrollmentDto (String firstName, String lastName, ContactEnrollmentDto contactInfo) {
+    public MemberEnrollmentDto (String firstName, String lastName, ContactEnrollmentDto contactInfo, AddressEnrollmentDto addressInfo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactInfo = contactInfo;
+        this.addressInfo = addressInfo;
     }
 
     public Member toEntity() {
@@ -27,6 +30,7 @@ public class MemberEnrollmentDto {
                 .firstName(firstName)
                 .lastName(lastName)
                 .contact(contactInfo.toEntity())
+                .address(addressInfo.toEntity())
                 .build();
     }
 }
