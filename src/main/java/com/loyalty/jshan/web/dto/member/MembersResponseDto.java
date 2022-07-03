@@ -1,8 +1,6 @@
 package com.loyalty.jshan.web.dto.member;
-
-import com.loyalty.jshan.domain.contact.Contact;
-import com.loyalty.jshan.domain.member.Member;
-//import com.loyalty.jshan.web.dto.contact.ContactResponseDto;
+ 
+import com.loyalty.jshan.domain.member.Member; 
 import com.loyalty.jshan.web.dto.contact.ContactResponseDto;
 import lombok.Builder;
 import lombok.Getter;

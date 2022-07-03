@@ -1,7 +1,5 @@
 package com.loyalty.jshan.web;
-
-
-import com.loyalty.jshan.domain.member.Member;
+ 
 import com.loyalty.jshan.web.dto.member.MembersResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
