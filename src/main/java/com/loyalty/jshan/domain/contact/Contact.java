@@ -26,14 +26,20 @@ public class Contact extends CommonEntity {
     @Column
     private String emailAddress; // validation/constraints to be added.
 
-    @OneToOne(mappedBy = "contact")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "memberId", referencedColumnName = "id")
     private Member member;
 
     @Builder
-    public Contact(String mobileNumber, String homePhoneNumber, String emailAddress){
+    public Contact(String mobileNumber, String homePhoneNumber, String emailAddress, Member member){
         this.mobileNumber = mobileNumber;
         this.homePhoneNumber = homePhoneNumber;
         this.emailAddress = emailAddress;
+        this.member = member;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
     }
 
 }

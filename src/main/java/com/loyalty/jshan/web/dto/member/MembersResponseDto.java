@@ -20,10 +20,10 @@ public class MembersResponseDto {
     public MembersResponseDto(Member entity) {
         this.firstName = entity.getFirstName();
         this.lastName = entity.getLastName();
-        this.contactInfo = ContactResponseDto.builder()
-                .mobileNumber(entity.getContact().getMobileNumber())
-                .homePhoneNumber(entity.getContact().getHomePhoneNumber())
-                .emailAddress(entity.getContact().getEmailAddress())
-                .build();
+//        this.contactInfo = ContactResponseDto.builder()
+//                .mobileNumber(entity.getContact().getMobileNumber())
+//                .homePhoneNumber(entity.getContact().getHomePhoneNumber())
+//                .emailAddress(entity.getContact().getEmailAddress())
+//                .build();
     }
 }
