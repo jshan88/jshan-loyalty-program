@@ -1,13 +1,13 @@
 package com.loyalty.jshan.domain;
 
+import com.loyalty.jshan.domain.member.address.enumAddress.AddressType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.loyalty.jshan.domain.address.Address;
-import com.loyalty.jshan.domain.address.AddressRepository;
-import com.loyalty.jshan.domain.address.enumForAddress.AddressType;
+import com.loyalty.jshan.domain.member.address.Address;
+import com.loyalty.jshan.domain.member.address.AddressRepository;
 
 @SpringBootTest
 public class AddressRepositoryTest {

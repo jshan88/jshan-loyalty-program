@@ -1,4 +1,4 @@
-package com.loyalty.jshan.domain.contact;
+package com.loyalty.jshan.domain.member.contact;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

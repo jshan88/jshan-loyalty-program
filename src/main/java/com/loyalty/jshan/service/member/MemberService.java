@@ -1,20 +1,22 @@
 package com.loyalty.jshan.service.member;
 
-import com.loyalty.jshan.domain.address.Address;
-import com.loyalty.jshan.domain.address.AddressRepository;
-import com.loyalty.jshan.domain.contact.Contact;
-import com.loyalty.jshan.domain.contact.ContactRepository;
+import com.loyalty.jshan.domain.member.address.Address;
+import com.loyalty.jshan.domain.member.address.AddressRepository;
+import com.loyalty.jshan.domain.member.contact.Contact;
+import com.loyalty.jshan.domain.member.contact.ContactRepository;
 import com.loyalty.jshan.domain.member.Member;
 import com.loyalty.jshan.domain.member.MemberRepository;
-import com.loyalty.jshan.web.dto.address.AddressEnrollmentDto;
-import com.loyalty.jshan.web.dto.contact.ContactEnrollmentDto;
+import com.loyalty.jshan.service.member.address.AddressService;
+import com.loyalty.jshan.service.member.contact.ContactService;
+import com.loyalty.jshan.web.dto.member.MemberUpdateDto;
+import com.loyalty.jshan.web.dto.member.address.AddressEnrollmentDto;
 import com.loyalty.jshan.web.dto.member.MembersResponseDto;
+import com.loyalty.jshan.web.dto.member.contact.ContactUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.loyalty.jshan.web.dto.member.MemberEnrollmentDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,6 +27,9 @@ public class MemberService {
     private final ContactRepository contactRepository;
     private final AddressRepository addressRepository;
 
+    private final AddressService addressService;
+    private final ContactService contactService;
+
     @Transactional
     public Long memberEnrollment(MemberEnrollmentDto requestDto) {
 
@@ -32,35 +37,32 @@ public class MemberService {
         Member member = requestDto.toMemberEntity();
         memberRepository.save(member);
 
-        //Contact Information of the member.
-        ContactEnrollmentDto contactDto = requestDto.getContactInfo();
-        Contact contact = contactDto.toEntity();
-//        contact.updateMember(member);
-        member.updateContact(contact);
-        contactRepository.save(contact);
-
         //Address Information of the member.
-        List<AddressEnrollmentDto> addressDtos = requestDto.getAddressInfo();
-        Address address;
-        for (AddressEnrollmentDto addressEnrollmentDto : addressDtos) {
-            address = addressEnrollmentDto.toEntity();
-//            address.updateMember(member);
+        addressService.mapMemberToAddress(member, requestDto.getAddressInfo());
 
-            //below is not any related to the DB SQL insert.
-            //This is just to add the addressList to the Member Object (Persistence Context)
-            //So that they can be retrieved before the flush/commit/clear.
-//            member.getAddressList().add(address); /// OneToMany.
-
-            addressRepository.save(address);
-            member.addAddress(address);
-        }
         return member.getId();
+    }
+
+    @Transactional
+    public MembersResponseDto memberUpdate(Long id, MemberUpdateDto requestDto) {
+
+        Member member = memberRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("No member found with the given id : " + id));
+
+        member.updateMember(requestDto.getFirstName(), requestDto.getLastName(), requestDto.getDateOfBirth());
+
+        contactService.updateContact(member, requestDto.getContactUpdateDto());
+
+        addressService.updateAddressList(member, requestDto.getAddressUpdateDtoList());
+
+        return new MembersResponseDto(member); // to be checked.
     }
 
     public MembersResponseDto memberSearchById(Long id) {
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("No member found with the given id : " + id));
+
 
         return new MembersResponseDto(member);
     }

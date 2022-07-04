@@ -1,22 +1,27 @@
 package com.loyalty.jshan.web;
 
-import com.loyalty.jshan.domain.address.Address;
-import com.loyalty.jshan.domain.address.AddressRepository;
-import com.loyalty.jshan.domain.address.enumAddress.AddressType;
-import com.loyalty.jshan.domain.contact.Contact;
-import com.loyalty.jshan.domain.contact.ContactRepository;
+import com.loyalty.jshan.domain.member.address.Address;
+import com.loyalty.jshan.domain.member.address.AddressRepository;
+import com.loyalty.jshan.domain.member.address.enumAddress.AddressType;
+import com.loyalty.jshan.domain.member.contact.Contact;
+import com.loyalty.jshan.domain.member.contact.ContactRepository;
 import com.loyalty.jshan.domain.member.Member;
 import com.loyalty.jshan.domain.member.MemberRepository;
-import com.loyalty.jshan.web.dto.address.AddressEnrollmentDto;
-import org.junit.jupiter.api.AfterEach;
+import com.loyalty.jshan.web.dto.member.MemberUpdateDto;
+import com.loyalty.jshan.web.dto.member.address.AddressEnrollmentDto;
+import com.loyalty.jshan.web.dto.member.MembersResponseDto;
+import com.loyalty.jshan.web.dto.member.address.AddressUpdateDto;
+import com.loyalty.jshan.web.dto.member.contact.ContactUpdateDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.loyalty.jshan.web.dto.contact.ContactEnrollmentDto;
+import com.loyalty.jshan.web.dto.member.contact.ContactEnrollmentDto;
 import com.loyalty.jshan.web.dto.member.MemberEnrollmentDto;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,11 +48,69 @@ public class MemberControllerTest {
     @Autowired
     private AddressRepository addressRepository;
 
-    @AfterEach
-    public void deleteAll() {
-        contactRepository.deleteAll();
-        memberRepository.deleteAll();
-        addressRepository.deleteAll();
+//    @AfterEach
+//    public void deleteAll() {
+//        contactRepository.deleteAll();
+//        memberRepository.deleteAll();
+//        addressRepository.deleteAll();
+//    }
+
+    @Test
+    public void retrieveMemberTest() {
+
+        //given
+        Long id = 2L;
+
+        String url = "http://localhost:" + port + "/api/v1/member/" + id;
+
+        //when
+        ResponseEntity<MembersResponseDto> responseEntity = restTemplate.getForEntity(url, MembersResponseDto.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(responseEntity.getBody().getFirstName());
+        System.out.println(responseEntity.getBody().getContactInfo().getEmailAddress());
+        System.out.println(responseEntity.getBody().getAddressResponseDtoList().get(0).getAddressType());
+
+    }
+
+    @Transactional
+    @Test
+    public void updateMemberTest() {
+
+        //given
+
+        ContactUpdateDto contactUpdateDto = ContactUpdateDto.builder()
+                .mobileNumber("010-6313-8116").build();
+
+        AddressUpdateDto addressUpdateDto = AddressUpdateDto.builder()
+                .addressType(AddressType.valueOf("B")).country("USA").build();
+
+        List<AddressUpdateDto> addressList = new ArrayList<>();
+        addressList.add(addressUpdateDto);
+
+        MemberUpdateDto memberUpdateDto = MemberUpdateDto.builder()
+                .firstName("JAYSON")
+                .lastName("HAN")
+                .contactUpdateDto(contactUpdateDto)
+                .addressUpdateDtos(addressList)
+                .build();
+
+        Long id = 2L;
+
+        String url = "http://localhost:"+port+"/api/v1/member/" + id;
+
+        HttpEntity<MemberUpdateDto> requestEntity = new HttpEntity<>(memberUpdateDto);
+
+        //when
+
+        ResponseEntity<MembersResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, MembersResponseDto.class);
+        //then
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        memberRepository.findAll();
+        addressRepository.findAll();
     }
 
     @Transactional

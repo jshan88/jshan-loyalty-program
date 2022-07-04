@@ -1,7 +1,7 @@
-package com.loyalty.jshan.domain.address;
+package com.loyalty.jshan.domain.member.address;
 
 import com.loyalty.jshan.domain.CommonEntity;
-import com.loyalty.jshan.domain.address.enumAddress.AddressType;
+import com.loyalty.jshan.domain.member.address.enumAddress.AddressType;
 import com.loyalty.jshan.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,6 +46,14 @@ public class Address extends CommonEntity {
         this.address1 = address1;
         this.address2 = address2;
         this.member = member;
+    }
+
+    public void updateAddress(AddressType addressType, String country, String zipCode, String address1, String address2) {
+        this.addressType = addressType;
+        this.country = country;
+        this.zipCode = zipCode;
+        this.address1 = address1;
+        this.address2 = address2;
     }
 
     public void updateMember(Member member) {

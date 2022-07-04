@@ -1,4 +1,4 @@
-package com.loyalty.jshan.domain.contact;
+package com.loyalty.jshan.domain.member.contact;
 
 import com.loyalty.jshan.domain.member.Member;
 import com.loyalty.jshan.domain.CommonEntity;
@@ -26,8 +26,9 @@ public class Contact extends CommonEntity {
     @Column
     private String emailAddress; // validation/constraints to be added.
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "memberId", referencedColumnName = "id")
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "memberId", referencedColumnName = "id")
+    @OneToOne(mappedBy = "contact", cascade = CascadeType.ALL)
     private Member member;
 
     @Builder
@@ -36,6 +37,12 @@ public class Contact extends CommonEntity {
         this.homePhoneNumber = homePhoneNumber;
         this.emailAddress = emailAddress;
         this.member = member;
+    }
+
+    public void updateContact(String mobileNumber, String homePhoneNumber, String emailAddress) {
+        this.mobileNumber = mobileNumber;
+        this.homePhoneNumber = homePhoneNumber;
+        this.emailAddress = emailAddress;
     }
 
     public void updateMember(Member member) {

@@ -1,5 +1,6 @@
 package com.loyalty.jshan.web;
  
+import com.loyalty.jshan.web.dto.member.MemberUpdateDto;
 import com.loyalty.jshan.web.dto.member.MembersResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,5 +23,11 @@ public class MemberController {
     public MembersResponseDto memberSearchByEmail(@PathVariable Long id) {
 
         return memberService.memberSearchById(id);
+    }
+
+    @PutMapping("/api/v1/member/{id}")
+    public MembersResponseDto memberUpdate(@PathVariable Long id, @RequestBody MemberUpdateDto requestDto) {
+
+        return memberService.memberUpdate(id, requestDto);
     }
 }

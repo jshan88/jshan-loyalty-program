@@ -1,17 +1,14 @@
-package com.loyalty.jshan.web.dto.address;
+package com.loyalty.jshan.web.dto.member.address;
 
-import com.loyalty.jshan.domain.address.Address;
-import com.loyalty.jshan.domain.address.enumAddress.AddressType;
-
+import com.loyalty.jshan.domain.member.address.Address;
+import com.loyalty.jshan.domain.member.address.enumAddress.AddressType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Getter
 @NoArgsConstructor
-public class AddressEnrollmentDto {
+public class AddressUpdateDto {
 
     private AddressType addressType;
     private String country;
@@ -20,9 +17,7 @@ public class AddressEnrollmentDto {
     private String address2;
 
     @Builder
-    public AddressEnrollmentDto (AddressType addressType, String country, String zipCode
-                               ,String address1, String address2)
-    {
+    public AddressUpdateDto(AddressType addressType, String country, String zipCode, String address1, String address2) {
         this.addressType = addressType;
         this.country = country;
         this.zipCode = zipCode;
@@ -31,7 +26,6 @@ public class AddressEnrollmentDto {
     }
 
     public Address toEntity() {
-
         return Address.builder()
                 .addressType(this.addressType)
                 .country(this.country)
@@ -40,4 +34,5 @@ public class AddressEnrollmentDto {
                 .address2(this.address2)
                 .build();
     }
+
 }

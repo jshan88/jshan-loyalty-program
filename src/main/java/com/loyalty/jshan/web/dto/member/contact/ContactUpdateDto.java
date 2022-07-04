@@ -1,4 +1,4 @@
-package com.loyalty.jshan.web.dto.contact;
+package com.loyalty.jshan.web.dto.member.contact;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ContactResponseDto {
+public class ContactUpdateDto {
 
     private String mobileNumber;
     private String homePhoneNumber;
     private String emailAddress;
 
     @Builder
-    public ContactResponseDto(String mobileNumber, String homePhoneNumber, String emailAddress) {
+    public ContactUpdateDto(String mobileNumber, String homePhoneNumber, String emailAddress) {
         this.mobileNumber = mobileNumber;
         this.homePhoneNumber = homePhoneNumber;
         this.emailAddress = emailAddress;

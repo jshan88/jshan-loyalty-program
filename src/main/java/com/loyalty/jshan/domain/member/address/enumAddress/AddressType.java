@@ -1,5 +1,5 @@
-package com.loyalty.jshan.domain.address.enumForAddress;
- 
+package com.loyalty.jshan.domain.member.address.enumAddress;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,8 +10,7 @@ public enum AddressType {
 
     private String description;
 
-    
     private AddressType(String description) {
         this.description = description;
-    }    
+    }
 }

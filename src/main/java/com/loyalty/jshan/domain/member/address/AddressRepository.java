@@ -1,4 +1,4 @@
-package com.loyalty.jshan.domain.address;
+package com.loyalty.jshan.domain.member.address;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
