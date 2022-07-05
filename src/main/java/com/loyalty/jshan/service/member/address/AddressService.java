@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -30,16 +31,17 @@ public class AddressService {
     }
 
     public void updateAddressList(Member member, List<AddressUpdateDto> requestDtos) {
-
-        Address address;
+ 
 
         if (member.getAddressList().size() == 0) {
             for (AddressUpdateDto addressUpdateDto : requestDtos) {
-                address = addressUpdateDto.toEntity();
+                Address address = addressUpdateDto.toEntity();
                 addressRepository.save(address);
                 member.mapAddressToMember(address);
             }
-        } else { ///// H만 가지고 있었는데, B가 들어오면 추가하는 로직 만들어야됨.
+        } else { 
+
+            // Update Addresses that exist with the same Address Type. 
             for (int i = 0; i < member.getAddressList().size(); i++) {
                 for(int j = 0; j < requestDtos.size(); j++) {
                     if(member.getAddressList().get(i).getAddressType() == requestDtos.get(j).getAddressType()) {
@@ -49,6 +51,18 @@ public class AddressService {
                     }
                 }
             }
+
+            // Insert Addresses that do not exist with the given Address Type. 
+            if(requestDtos.size() > 0) { 
+ 
+                requestDtos.stream().forEach(addr -> {
+
+                    Address address = addr.toEntity();
+                    addressRepository.save(address);
+                    member.mapAddressToMember(address);
+
+                });
+            }
         }
     }
 
@@ -57,10 +71,4 @@ public class AddressService {
                         requestDto.getAddress1(), requestDto.getAddress2());
     }
 }
-
-/*
-    public List<Book> ListDtoToListEntity(List<Item> item){
-        return item.stream()
-                .map(Item::toEntity)
-                .collect(Collectors.toList());
-    }*/
+ 
