@@ -6,9 +6,11 @@ import com.loyalty.jshan.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor
 @Entity
@@ -38,6 +40,20 @@ public class Address extends CommonEntity {
     @JoinColumn(name = "memberId", referencedColumnName = "id")
     private Member member;
 
+    public void mapMemberToAddress(Member member) {
+        this.member = member;
+//        member.getAddressList().add(this);
+        //This is just to add the addressList to the Member Object (Persistence Context)
+        //So that they can be retrieved before the flush/commit/clear.
+
+        //to-be added : in case the address
+        //if the input address type already exists in the addresslist then update.
+        //else insert.
+        // (coming to think about it, this logic can only be implemented in the service level,
+        // as you would have to .find () the existing addresses of the member first
+        // to compare whether the given address type already exists or not.
+    }
+
     @Builder
     public Address (AddressType addressType, String country, String zipCode, String address1, String address2, Member member) {
         this.addressType = addressType;
@@ -54,19 +70,7 @@ public class Address extends CommonEntity {
         this.zipCode = zipCode;
         this.address1 = address1;
         this.address2 = address2;
-    }
+    } ////////// instead of  if(country != null) this.country = country, for the null parameters,
+    ////////// I think I can use @DynamicUpdate, which helps you
 
-    public void mapMemberToAddress(Member member) {
-        this.member = member;
-//        member.getAddressList().add(this);
-        //This is just to add the addressList to the Member Object (Persistence Context)
-        //So that they can be retrieved before the flush/commit/clear.
-
-        //to-be added : in case the address
-        //if the input address type already exists in the addresslist then update.
-        //else insert.
-        // (coming to think about it, this logic can only be implemented in the service level,
-        // as you would have to .find () the existing addresses of the member first
-        // to compare whether the given address type already exists or not.
-    }
 }
