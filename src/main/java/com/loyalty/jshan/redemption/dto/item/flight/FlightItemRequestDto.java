@@ -1,6 +1,6 @@
-package com.loyalty.jshan.order.dto.item.flight;
+package com.loyalty.jshan.redemption.dto.item.flight;
 
-import com.loyalty.jshan.order.domain.item.flight.FlightType;
+import com.loyalty.jshan.redemption.domain.item.flight.FlightType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

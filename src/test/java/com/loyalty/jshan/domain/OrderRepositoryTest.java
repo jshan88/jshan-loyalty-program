@@ -1,13 +1,11 @@
 package com.loyalty.jshan.domain;
 
-import com.loyalty.jshan.order.domain.Cart;
-import com.loyalty.jshan.order.domain.item.Item;
-import com.loyalty.jshan.order.domain.item.flight.FlightItem;
-import com.loyalty.jshan.order.domain.item.flight.FlightType;
-import com.loyalty.jshan.order.repository.CartRepository;
-import com.loyalty.jshan.order.repository.ItemRepository;
-import com.loyalty.jshan.order.repository.OrderRepository;
-import org.junit.jupiter.api.AfterEach;
+import com.loyalty.jshan.redemption.domain.Cart;
+import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
+import com.loyalty.jshan.redemption.domain.item.flight.FlightType;
+import com.loyalty.jshan.redemption.repository.CartRepository;
+import com.loyalty.jshan.redemption.repository.ItemRepository;
+import com.loyalty.jshan.redemption.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

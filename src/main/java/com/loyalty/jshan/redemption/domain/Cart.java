@@ -1,12 +1,11 @@
-package com.loyalty.jshan.order.domain;
+package com.loyalty.jshan.redemption.domain;
 
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.member.domain.Member;
-import com.loyalty.jshan.order.domain.item.Item;
+import com.loyalty.jshan.redemption.domain.item.Item;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

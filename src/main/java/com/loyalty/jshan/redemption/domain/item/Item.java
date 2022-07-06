@@ -1,11 +1,9 @@
-package com.loyalty.jshan.order.domain.item;
+package com.loyalty.jshan.redemption.domain.item;
 import com.loyalty.jshan.global.CommonEntity;
-import com.loyalty.jshan.order.domain.Cart;
+import com.loyalty.jshan.redemption.domain.Cart;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 

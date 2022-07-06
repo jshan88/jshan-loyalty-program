@@ -1,8 +1,8 @@
-package com.loyalty.jshan.order.service;
+package com.loyalty.jshan.redemption.service;
 
 import com.loyalty.jshan.member.repository.MemberRepository;
-import com.loyalty.jshan.order.dto.CartRequestDto;
-import com.loyalty.jshan.order.repository.CartRepository;
+import com.loyalty.jshan.redemption.dto.CartRequestDto;
+import com.loyalty.jshan.redemption.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

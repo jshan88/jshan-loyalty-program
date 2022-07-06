@@ -1,4 +1,4 @@
-package com.loyalty.jshan.order.domain;
+package com.loyalty.jshan.redemption.domain;
 
 public enum OrderStatus {
     ISSUED, REISSUED, REFUND

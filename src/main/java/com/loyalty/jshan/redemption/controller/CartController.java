@@ -1,7 +1,7 @@
-package com.loyalty.jshan.order.controller;
+package com.loyalty.jshan.redemption.controller;
 
-import com.loyalty.jshan.order.dto.CartRequestDto;
-import com.loyalty.jshan.order.service.CartService;
+import com.loyalty.jshan.redemption.dto.CartRequestDto;
+import com.loyalty.jshan.redemption.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

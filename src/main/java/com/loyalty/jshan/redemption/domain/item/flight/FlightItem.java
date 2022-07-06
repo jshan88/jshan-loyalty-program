@@ -1,16 +1,14 @@
-package com.loyalty.jshan.order.domain.item.flight;
-import com.loyalty.jshan.order.domain.Cart;
-import com.loyalty.jshan.order.domain.item.Item;
+package com.loyalty.jshan.redemption.domain.item.flight;
+import com.loyalty.jshan.redemption.domain.Cart;
+import com.loyalty.jshan.redemption.domain.item.Item;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor

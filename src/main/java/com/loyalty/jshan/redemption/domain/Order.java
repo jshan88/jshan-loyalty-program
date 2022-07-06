@@ -1,4 +1,4 @@
-package com.loyalty.jshan.order.domain;
+package com.loyalty.jshan.redemption.domain;
 
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.member.domain.Member;
