@@ -12,8 +12,7 @@ import javax.persistence.Enumerated;
 
 @Getter
 @NoArgsConstructor
-@Entity
-//@DiscriminatorValue("F)
+@Entity 
 public class FlightItem extends Item {
 
     @Enumerated(EnumType.STRING)
@@ -25,7 +24,7 @@ public class FlightItem extends Item {
     @Column(length = 2)
     private String oprCarrier;
 
-    @Column(length = 8, columnDefinition = "date format = yyyymmdd")
+    @Column(length = 8)
     private String depDate;
 
     @Column(length = 3)
@@ -35,9 +34,9 @@ public class FlightItem extends Item {
     private String arrApo;
 
     @Builder
-    public FlightItem(String itemName, int mileage, Cart cart, FlightType flightType,
+    public FlightItem(String itemName, int itemCount, int mileage, Cart cart, FlightType flightType,
                       String mktCarrier, String oprCarrier, String depDate, String depApo, String arrApo) {
-        super(itemName, mileage, cart);
+        super(itemName, itemCount, mileage, cart);
         this.flightType = flightType;
         this.mktCarrier = mktCarrier;
         this.oprCarrier = oprCarrier;

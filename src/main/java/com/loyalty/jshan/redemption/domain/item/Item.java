@@ -21,7 +21,13 @@ public abstract class Item extends CommonEntity {
 
     private String itemName;
 
+    private int itemCount;
+
     private int mileage;
+
+    public void addMoreItems(int additionalCount) {
+        this.itemCount += additionalCount;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cartId", referencedColumnName = "id")
@@ -32,8 +38,9 @@ public abstract class Item extends CommonEntity {
     }
 
 //    @Builder
-    public Item (String itemName, int mileage, Cart cart) {
+    public Item (String itemName, int itemCount, int mileage, Cart cart) {
         this.itemName = itemName;
+        this.itemCount = itemCount;
         this.mileage = mileage;
         this.cart = cart;
     }

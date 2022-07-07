@@ -36,9 +36,18 @@ public class Cart extends CommonEntity {
 
     public void addItemToCart(Item item) {
         this.itemList.add(item);
-        this.totalCount += 1;
-        this.totalMileage += item.getMileage();
+        // this.totalCount += 1;
+        // this.totalMileage += item.getMileage();
+        this.refreshCart();
         item.mapItemToCart(this);
+    }
+
+    public void refreshCart() { 
+        itemList.stream().forEach(lst -> {
+            this.totalCount += lst.getItemCount();
+            this.totalMileage += (lst.getMileage() * lst.getItemCount());
+        });
+        
     }
 
     @Builder

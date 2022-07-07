@@ -16,6 +16,6 @@ public class CartController {
     @PostMapping("/api/v1/cart")
     public Long addItemToCart(@RequestBody CartRequestDto requestDto) {
 
-        return 0L;
+        return cartService.updateCart(requestDto);
     }
 }
