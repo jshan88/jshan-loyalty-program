@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    @Query(value = "SELECT i.* FROM Item i, Flight_Item f WHERE i.i.cart_Id = ?1 and i.item_Name = ?2", nativeQuery = true)
+    @Query(value = "SELECT * FROM Item i, Flight_Item f WHERE i.cart_Id = ?1 and i.item_Name = ?2", nativeQuery = true)
     Item findSpecificItemInCart(Long cartId, String itemName);
 }

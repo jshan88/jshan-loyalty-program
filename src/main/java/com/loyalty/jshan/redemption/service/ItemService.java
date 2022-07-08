@@ -29,6 +29,7 @@ public class ItemService {
                 cart.addItemToCart(flightItem);
             } else {  /// add more quantity of the existing item.                 
                 item.addMoreItems(flightDto.getItemCount());
+                cart.refreshCart();
             }            
         });
     }

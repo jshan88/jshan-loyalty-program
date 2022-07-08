@@ -40,17 +40,16 @@ public class CartControllerTest {
 
     @Transactional
     @Test
-    public void cartRequestTest() { 
-///////////////////////////////ITEM - FLIGHT_ITEM 관계 다시 설정. 이거는 상속관계로 될게 아님 내 비즈니스상.
+    public void cartRequestTest() {  
         //given
         FlightItemRequestDto itemRequestDto = FlightItemRequestDto.builder()
-                                                .itemName("KE INT FLT")
+                                                .itemName("KE DOM FLT")
                                                 .itemCount(1)
-                                                .flightType(FlightType.INTERNATIONAL)
-                                                .depDate("20220801")
-                                                .depApo("ICN")
-                                                .arrApo("LAX")
-                                                .mileage(35000)
+                                                .flightType(FlightType.DOMESTIC)
+                                                .depDate("20220901")
+                                                .depApo("GMP")
+                                                .arrApo("CJU")
+                                                .mileage(5000)
                                                 .mktCarrier("KE")
                                                 .oprCarrier("KE")
                                                 .build();
