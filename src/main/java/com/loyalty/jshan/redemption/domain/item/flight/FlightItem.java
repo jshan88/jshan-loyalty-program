@@ -34,7 +34,7 @@ public class FlightItem extends Item {
     private String arrApo;
 
     @Builder
-    public FlightItem(String itemName, int itemCount, int mileage, Cart cart, FlightType flightType,
+    public FlightItem(String dtype, String itemName, int itemCount, int mileage, Cart cart, FlightType flightType,
                       String mktCarrier, String oprCarrier, String depDate, String depApo, String arrApo) {
         super(itemName, itemCount, mileage, cart);
         this.flightType = flightType;

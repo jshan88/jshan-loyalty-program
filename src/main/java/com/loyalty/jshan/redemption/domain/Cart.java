@@ -26,12 +26,9 @@ public class Cart extends CommonEntity {
     private Member member;
 
     private LocalDateTime expiryDate;
-
     private int totalCount;
-
     private int totalMileage;
-
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // orphan removal?
     private List<Item> itemList = new ArrayList<>();
 
     public void addItemToCart(Item item) {

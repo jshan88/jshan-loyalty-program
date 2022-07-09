@@ -1,5 +1,6 @@
 package com.loyalty.jshan.web;
 
+import com.loyalty.jshan.redemption.dto.CartResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,9 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
-import com.loyalty.jshan.redemption.domain.item.Item;
 import com.loyalty.jshan.redemption.domain.item.flight.FlightType;
 import com.loyalty.jshan.redemption.dto.CartRequestDto;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemRequestDto;
@@ -30,26 +29,49 @@ public class CartControllerTest {
     private int port;
 
     @Autowired
-    TestRestTemplate restTemplate;
+    private TestRestTemplate restTemplate;
 
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    CartRepository cartRepository;
+    private CartRepository cartRepository;
+
+
+    @Transactional
+    @Test
+    public void cartResponseTest() {
+
+        //given
+        Long memberId = 1L;
+        String url = "http://localhost:" + port + "/api/v1/cart/" + memberId;
+
+        //when
+        ResponseEntity<CartResponseDto> responseEntity = restTemplate.getForEntity(url, CartResponseDto.class);
+
+
+        //then
+        System.out.println(responseEntity);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isInstanceOf(CartResponseDto.class);
+
+
+    }
+
 
     @Transactional
     @Test
     public void cartRequestTest() {  
         //given
         FlightItemRequestDto itemRequestDto = FlightItemRequestDto.builder()
-                                                .itemName("KE DOM FLT")
-                                                .itemCount(1)
-                                                .flightType(FlightType.DOMESTIC)
-                                                .depDate("20220901")
-                                                .depApo("GMP")
-                                                .arrApo("CJU")
-                                                .mileage(5000)
+                                                .itemName("KE INT FLT")
+                                                .itemCount(1    )
+                                                .flightType(FlightType.INTERNATIONAL)
+                                                .depDate("20221001")
+                                                .depApo("ICN")
+                                                .arrApo("LAX")
+                                                .mileage(35000)
                                                 .mktCarrier("KE")
                                                 .oprCarrier("KE")
                                                 .build();

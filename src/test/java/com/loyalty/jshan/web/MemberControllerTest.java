@@ -96,7 +96,7 @@ public class MemberControllerTest {
                 .addressUpdateDtos(addressList)
                 .build();
 
-        Long id = 2L;
+        Long id = 1L;
 
         String url = "http://localhost:"+port+"/api/v1/member/" + id;
 

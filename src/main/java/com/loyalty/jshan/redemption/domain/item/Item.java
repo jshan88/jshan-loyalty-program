@@ -1,6 +1,7 @@
 package com.loyalty.jshan.redemption.domain.item;
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.redemption.domain.Cart;
+import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public abstract class Item extends CommonEntity {
     private int itemCount;
 
     private int mileage;
+
 
     public void addMoreItems(int additionalCount) {
         this.itemCount += additionalCount;
