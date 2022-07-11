@@ -3,9 +3,8 @@ package com.loyalty.jshan.accrual.service;
 import com.loyalty.jshan.accrual.domain.AccrualRateChart;
 import com.loyalty.jshan.accrual.domain.TpmChart;
 import com.loyalty.jshan.accrual.dto.AccrualRequestDto;
-import com.loyalty.jshan.accrual.dto.AccrualRateResponseDto;
 import com.loyalty.jshan.accrual.dto.FlightAccrualRequestDto;
-import com.loyalty.jshan.accrual.dto.TpmResponseDto;
+import com.loyalty.jshan.global.exception.ApiRequestException;
 import com.loyalty.jshan.accrual.repository.AccrualRateChartRepository;
 import com.loyalty.jshan.accrual.repository.TpmChartRepository;
 import com.loyalty.jshan.member.domain.Member;
@@ -27,14 +26,14 @@ public class AccrualService {
     private final TransactionRepository transactionRepository;
 
     @Transactional
-    public Long putAccrualCancelRequest(Long accrualId) throws Exception {
+    public Long putAccrualCancelRequest(Long accrualId) {
 
         Transaction cancelTxn = transactionRepository.findById(accrualId)
-                .orElseThrow(()-> new RuntimeException("No transaction found with the given ID : " + accrualId));
+                .orElseThrow(()-> new ApiRequestException("No transaction found with the given ID : " + accrualId));
 
         //TODO : create user-defined exception class.
         if(cancelTxn.getStatus() == TransactionStatus.CANCELLED) {
-            throw new Exception("Transaction Already Cancelled");
+            throw new ApiRequestException("Transaction Already Cancelled");
         }
         cancelTxn.cancelTransaction();
 
@@ -57,21 +56,22 @@ public class AccrualService {
         return transactionRepository.save(cancellationTxn).getId();
     }
 
-    public Long postAccrualRequest(AccrualRequestDto accrualRequestDto) {
+    public Long postAccrualRequest(AccrualRequestDto accrualRequestDto)  {
+
+        Long memberId = accrualRequestDto.getMemberId();
+        Member member = memberRepository.findById(memberId).orElseThrow(()
+                -> new ApiRequestException("no member found with the given id : " + memberId));
 
         //TODO : considered the flight accrual request only for now.
-        return postFlightAccrualRequest(accrualRequestDto.getMemberId(), accrualRequestDto.getFlightRequest());
+        return postFlightAccrualRequest(member, accrualRequestDto.getFlightRequest());
     }
 
     @Transactional
-    public Long postFlightAccrualRequest(Long memberId, FlightAccrualRequestDto requestDto) {
+    public Long postFlightAccrualRequest(Member member, FlightAccrualRequestDto requestDto) {
 
         //TODO : dupe check. create a new method in transactionRepository .
         int accruedMileage = getMileageToAccrue(requestDto.getCarrier(), requestDto.getBookingClass(),
                                                 requestDto.getDepAPO(), requestDto.getArrAPO());
-
-        Member member = memberRepository.findById(memberId).orElseThrow(()
-                -> new RuntimeException("no member found with the given id : " + memberId));
 
         //TODO : Status to be "In-progress",
         //  if there's an engine that runs at the back and process those that are in-progress status

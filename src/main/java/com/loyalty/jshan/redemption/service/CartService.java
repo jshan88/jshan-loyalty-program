@@ -1,5 +1,6 @@
 package com.loyalty.jshan.redemption.service;
 
+import com.loyalty.jshan.global.exception.ApiRequestException;
 import com.loyalty.jshan.member.domain.Member;
 import com.loyalty.jshan.member.repository.MemberRepository;
 import com.loyalty.jshan.redemption.domain.Cart;
@@ -52,7 +53,8 @@ public class CartService {
     public Long updateCart(CartRequestDto cartRequestDto) {
 
         Long memberId = cartRequestDto.getMemberId();
-        Member member = memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("No Member Found with the given ID"));
+        Member member = memberRepository.findById(memberId).orElseThrow(()
+                -> new ApiRequestException("No Member Found with the given id " + memberId));
         Cart cart = cartRepository.findByMemberId(memberId);
 
         if(cart == null) {
