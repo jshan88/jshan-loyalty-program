@@ -29,6 +29,8 @@ public class Member extends CommonEntity {
 
     private LocalDateTime dateOfBirth;
 
+    private int remainMileage;
+
 //    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="contactId", referencedColumnName = "id")
@@ -51,10 +53,11 @@ public class Member extends CommonEntity {
     }
 
     @Builder
-    public Member (String firstName, String lastName, LocalDateTime dateOfBirth, Contact contact, List<Address> addressList) {
+    public Member (String firstName, String lastName, LocalDateTime dateOfBirth, int remainMileage, Contact contact, List<Address> addressList) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.remainMileage = remainMileage;
         this.contact = contact;
         this.addressList = addressList;
     }
@@ -63,5 +66,9 @@ public class Member extends CommonEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void updateMember(int mileage) {
+        this.remainMileage += mileage;
     }
 }

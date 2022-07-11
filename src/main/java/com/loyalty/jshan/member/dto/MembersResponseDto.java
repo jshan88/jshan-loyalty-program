@@ -16,6 +16,7 @@ public class MembersResponseDto {
 
     private String firstName;
     private String lastName;
+    private int remainMileage;
     private LocalDateTime dateOfBirth;
     private ContactResponseDto contactInfo;
     private List<AddressResponseDto> addressResponseDtoList = new ArrayList<>();
@@ -24,6 +25,7 @@ public class MembersResponseDto {
         this.firstName = entity.getFirstName();
         this.lastName = entity.getLastName();
         this.dateOfBirth = entity.getDateOfBirth();
+        this.remainMileage = entity.getRemainMileage();
         this.contactInfo = new ContactResponseDto(entity.getContact());
 
         for(int i = 0; i < entity.getAddressList().size(); i++) {

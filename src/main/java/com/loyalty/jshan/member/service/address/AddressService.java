@@ -30,6 +30,12 @@ public class AddressService {
         // Update Addresses with the same Address Types that are given.
         for (int i = 0; i < member.getAddressList().size(); i++) {
             for(int j = 0; j < requestDtos.size(); j++) {
+
+//                if(member.getAddressList().get(i).equals(requestDtos.get(j))) {
+//                    updateAddress(member.getAddressList().get(i), requestDtos.get(j));
+//                    requestDtos.remove(j);
+//                    break;
+//                }
                 if(member.getAddressList().get(i).getAddressType() == requestDtos.get(j).getAddressType()) {
                     updateAddress(member.getAddressList().get(i), requestDtos.get(j));
                     requestDtos.remove(j);
@@ -39,7 +45,7 @@ public class AddressService {
         }
         // Insert Addresses that do not exist with the given Address Type.
         if(requestDtos.size() > 0) {
-            requestDtos.stream().forEach(addr -> {
+            requestDtos.forEach(addr -> {
                 Address address = addr.toEntity();
                 addressRepository.save(address);
                 member.mapAddressToMember(address);

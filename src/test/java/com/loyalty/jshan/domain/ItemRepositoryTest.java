@@ -1,7 +1,6 @@
 package com.loyalty.jshan.domain;
 
 import com.loyalty.jshan.redemption.domain.item.Item;
-import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
 import com.loyalty.jshan.redemption.repository.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

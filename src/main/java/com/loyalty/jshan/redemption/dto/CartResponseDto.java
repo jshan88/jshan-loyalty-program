@@ -1,14 +1,10 @@
 package com.loyalty.jshan.redemption.dto;
 
-import com.loyalty.jshan.member.domain.Member;
-import com.loyalty.jshan.redemption.domain.item.Item;
-import com.loyalty.jshan.redemption.dto.item.ItemResponseDto;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

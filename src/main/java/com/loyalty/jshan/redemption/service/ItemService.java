@@ -2,14 +2,14 @@ package com.loyalty.jshan.redemption.service;
 
 import java.util.List;
 
+import com.loyalty.jshan.redemption.domain.Cart;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemResponseDto;
+import com.loyalty.jshan.redemption.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
-import com.loyalty.jshan.redemption.domain.Cart;
 import com.loyalty.jshan.redemption.domain.item.Item;
 import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemRequestDto;
-import com.loyalty.jshan.redemption.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,11 +19,12 @@ public class ItemService {
     
     private final ItemRepository itemRepository;
 
-    public void addFlightItemToCart(Cart cart, List<FlightItemRequestDto> flightList) {         
+    public void addFlightItemToCart(Cart cart, List<FlightItemRequestDto> flightList) {
 
         //flightList.stream().forEach(flightDto -> {
         flightList.forEach(flightDto -> {
-            Item item = itemRepository.findSpecificItemInCart(cart.getId(), flightDto.getItemName()); /// 이거 HashMap<Item> 같은걸로 받아서 처리하는거 고민해보자. 
+            Item item = itemRepository.findSpecificItemInCart(cart.getId(), flightDto.getItemName()); /// 이거 HashMap<Item> 같은걸로 받아서 처리하는거 고민해보자.
+//            Item item = itemRepository.findItemInCart(cart.getId(), flightDto.getItemName());
 
             if(item == null) {   /// add new item
                 FlightItem flightItem = flightDto.toEntity();

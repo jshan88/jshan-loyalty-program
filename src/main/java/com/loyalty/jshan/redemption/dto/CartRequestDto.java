@@ -1,7 +1,7 @@
 package com.loyalty.jshan.redemption.dto;
 
 import com.loyalty.jshan.member.domain.Member;
-import com.loyalty.jshan.redemption.domain.Cart; 
+import com.loyalty.jshan.redemption.domain.Cart;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemRequestDto;
 import lombok.Builder;
 import lombok.Getter;

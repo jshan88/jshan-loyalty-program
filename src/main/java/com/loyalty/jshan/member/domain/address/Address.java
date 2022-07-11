@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @DynamicUpdate
 @Getter
@@ -23,6 +24,19 @@ public class Address extends CommonEntity {
     @Enumerated(EnumType.STRING)
     @Column(length = 1)
     private AddressType addressType;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return getAddressType() == address.getAddressType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAddressType());
+    }
 
     @Column
     private String country;

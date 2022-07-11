@@ -1,7 +1,6 @@
 package com.loyalty.jshan.redemption.domain.item;
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.redemption.domain.Cart;
-import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

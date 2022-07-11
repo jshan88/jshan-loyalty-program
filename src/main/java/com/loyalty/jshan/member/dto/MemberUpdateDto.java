@@ -17,7 +17,6 @@ public class MemberUpdateDto {
     private String firstName;
     private String lastName;
     private LocalDateTime dateOfBirth;
-
     private ContactUpdateDto contactUpdateDto;
     private List<AddressUpdateDto> addressUpdateDtoList = new ArrayList<>();
 

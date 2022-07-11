@@ -36,6 +36,7 @@ public class MemberEnrollmentDto {
                     .firstName(firstName)
                     .lastName(lastName)
                     .dateOfBirth(dateOfBirth)
+                    .remainMileage(0)
                     .contact(contactInfo.toEntity())
                     .addressList(new ArrayList<>())
                     .build();

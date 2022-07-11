@@ -3,16 +3,12 @@ package com.loyalty.jshan.redemption.service;
 import com.loyalty.jshan.member.domain.Member;
 import com.loyalty.jshan.member.repository.MemberRepository;
 import com.loyalty.jshan.redemption.domain.Cart;
-import com.loyalty.jshan.redemption.domain.item.Item;
 import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
-import com.loyalty.jshan.redemption.dto.CartRequestDto;
 import com.loyalty.jshan.redemption.dto.CartResponseDto;
-import com.loyalty.jshan.redemption.dto.item.ItemResponseDto;
-import com.loyalty.jshan.redemption.dto.item.flight.FlightItemRequestDto;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemResponseDto;
 import com.loyalty.jshan.redemption.repository.CartRepository;
 import com.loyalty.jshan.redemption.repository.FlightItemRepository;
-import com.loyalty.jshan.redemption.repository.ItemRepository;
+import com.loyalty.jshan.redemption.dto.CartRequestDto;
 
 import lombok.RequiredArgsConstructor;
 

@@ -62,11 +62,11 @@ public class CartControllerTest {
 
     @Transactional
     @Test
-    public void cartRequestTest() {  
+    public void cartRequestTest() {
         //given
         FlightItemRequestDto itemRequestDto = FlightItemRequestDto.builder()
                                                 .itemName("KE INT FLT")
-                                                .itemCount(1    )
+                                                .itemCount(1)
                                                 .flightType(FlightType.INTERNATIONAL)
                                                 .depDate("20221001")
                                                 .depApo("ICN")
