@@ -21,15 +21,19 @@ public class Transaction extends CommonEntity {
     @JoinColumn(name = "memberId", referencedColumnName = "id")
     private Member member;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cancelTxnId", referencedColumnName = "id")
+    private Transaction cancelTransaction;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "TXN_TYPE", length = 10, nullable = false)
-    private TransactionType txnType;
+    private TransactionType txnType; // ACCRUAL, REDEMPTION
 
     @Enumerated(EnumType.STRING)
-    private TransactionSubType txnSubType;
+    private TransactionSubType txnSubType; // PRODUCT, CANCELLATION
 
     @Enumerated(EnumType.STRING)
-    private TransactionStatus status;
+    private TransactionStatus status; // PROCESSED, CANCELLED
 
     @Enumerated(EnumType.STRING)
     private SourceType sourceType; // flight, creditcard, hotel, others
@@ -49,9 +53,10 @@ public class Transaction extends CommonEntity {
     private int mileage;
 
     @Builder
-    public Transaction(Member member, TransactionType txnType, TransactionSubType txnSubType, TransactionStatus status,
-                       SourceType sourceType, String sourceSubType, String bookingClass, String depAPO, String arrAPO,
-                       String departureDate, String flightNumber, int mileage) {
+    public Transaction(Transaction cancelTransaction, Member member, TransactionType txnType, TransactionSubType txnSubType,
+                       TransactionStatus status, SourceType sourceType, String sourceSubType, String bookingClass,
+                       String depAPO, String arrAPO, String departureDate, String flightNumber, int mileage) {
+        this.cancelTransaction = cancelTransaction;
         this.member = member;
         this.txnType = txnType;
         this.txnSubType = txnSubType;
@@ -65,4 +70,10 @@ public class Transaction extends CommonEntity {
         this.flightNumber = flightNumber;
         this.mileage = mileage;
     }
+    public void cancelTransaction() {
+        this.status = TransactionStatus.CANCELLED;
+        this.member.updateMember(this.mileage*-1);
+    }
+
+  ////  private TransactionStatus status; // PROCESSED, CANCELLED
 }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -39,6 +41,28 @@ public class AccrualControllerTest {
 
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @Test
+    public void postAccrualCancelTest() {
+
+        //given
+        Long accrualId = 2L;
+        String url = "http://localhost:" + port + "/api/v1/accrual/" + accrualId;
+
+        HttpEntity<Long> requestEntity = new HttpEntity<>(accrualId);
+
+        //when
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        List<Transaction> transactionList = transactionRepository.findAll();
+        transactionList.forEach(txn -> {
+            System.out.println(txn.getId() + " " + txn.getTxnType() + " " + txn.getTxnSubType() + " " + txn.getStatus());
+        });
+
+    }
+
 
     @Transactional
     @Test

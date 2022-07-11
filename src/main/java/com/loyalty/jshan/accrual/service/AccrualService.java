@@ -26,10 +26,40 @@ public class AccrualService {
     private final MemberRepository memberRepository;
     private final TransactionRepository transactionRepository;
 
+    @Transactional
+    public Long putAccrualCancelRequest(Long accrualId) throws Exception {
+
+        Transaction cancelTxn = transactionRepository.findById(accrualId)
+                .orElseThrow(()-> new RuntimeException("No transaction found with the given ID : " + accrualId));
+
+        //TODO : create user-defined exception class.
+        if(cancelTxn.getStatus() == TransactionStatus.CANCELLED) {
+            throw new Exception("Transaction Already Cancelled");
+        }
+        cancelTxn.cancelTransaction();
+
+        Transaction cancellationTxn = Transaction.builder()
+                .cancelTransaction(cancelTxn)
+                .txnType(TransactionType.REDEMPTION)
+                .txnSubType(TransactionSubType.CANCELLATION)
+                .depAPO(cancelTxn.getDepAPO())
+                .arrAPO(cancelTxn.getArrAPO())
+                .departureDate(cancelTxn.getDepartureDate())
+                .flightNumber(cancelTxn.getFlightNumber())
+                .bookingClass(cancelTxn.getBookingClass())
+                .mileage(cancelTxn.getMileage())
+                .member(cancelTxn.getMember())
+                .sourceType(cancelTxn.getSourceType())
+                .sourceSubType(cancelTxn.getSourceSubType())
+                .status(TransactionStatus.PROCESSED)
+                .build();
+
+        return transactionRepository.save(cancellationTxn).getId();
+    }
+
     public Long postAccrualRequest(AccrualRequestDto accrualRequestDto) {
 
         //TODO : considered the flight accrual request only for now.
-
         return postFlightAccrualRequest(accrualRequestDto.getMemberId(), accrualRequestDto.getFlightRequest());
     }
 
@@ -48,7 +78,6 @@ public class AccrualService {
 
         Transaction txn = Transaction.builder()
                                 .member(member)
-//                                .txnType(TransactionType.valueOf("ACCRUAL"))
                                 .txnType(TransactionType.ACCRUAL)
                                 .txnSubType(TransactionSubType.PRODUCT)
                                 .status(TransactionStatus.PROCESSED)
