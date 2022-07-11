@@ -17,11 +17,11 @@ public class AccrualController {
     public ResponseEntity<Long> accrualRequest(@RequestBody AccrualRequestDto requestDto) {
 
         Long id = accrualService.postAccrualRequest(requestDto);
-//        return accrualService.postAccrualRequest(requestDto); // returns transaction id.
+
         return ResponseEntity.status(HttpStatus.OK).body(id);
     }
     @PutMapping("/api/v1/accrual/{accrualId}")
-    public ResponseEntity<Long> accrualCancelRequest(@PathVariable Long accrualId) throws Exception {
+    public ResponseEntity<Long> accrualCancelRequest(@PathVariable Long accrualId) {
 
         Long id = accrualService.putAccrualCancelRequest(accrualId);
 //        return accrualService.putAccrualCancelRequest(accrualId);

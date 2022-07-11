@@ -43,7 +43,7 @@ public class AccrualControllerTest {
     private TransactionRepository transactionRepository;
 
     @Test
-    public void postAccrualCancelTest() {
+    public void putAccrualCancelTest() {
 
         //given
         Long accrualId = 2L;
@@ -52,9 +52,10 @@ public class AccrualControllerTest {
         HttpEntity<Long> requestEntity = new HttpEntity<>(accrualId);
 
         //when
-        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+        ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ResponseEntity.class);
 
         //then
+
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Transaction> transactionList = transactionRepository.findAll();
         transactionList.forEach(txn -> {

@@ -15,10 +15,10 @@ public class ApiExceptionHandler {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ApiException apiException = ApiException.builder()
                 .message(e.getMessage())
-//                .throwable(e)
                 .httpStatus(badRequest)
                 .timestamp(LocalDateTime.now())
                 .build();
+
         // 2. Return response entity.
         return new ResponseEntity<>(apiException, badRequest);
     }
