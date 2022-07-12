@@ -3,7 +3,14 @@ simple loyalty program - a small, side project.
 
 # Current Process ; 15%
 ■■■■■■■■■■##############################################################
-
+1. Done with the basic framework set-up. 
+2. APIs developed so far. 
+ 
+    ~ member : enrollment (post) / update (put) / get (retrieval).
+    
+    ~ accrual(적립) : accrual request(post) / accrual cancel(put) apis.
+    
+    ~ redemption(소진) : postCart / getCart
 
 # DB Table Schema for the program. 
 - The program will be implemented based on the below schema. (refer to the below links)
