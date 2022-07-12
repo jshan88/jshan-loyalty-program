@@ -8,6 +8,9 @@ import com.loyalty.jshan.accrual.repository.AccrualRateChartRepository;
 import com.loyalty.jshan.accrual.repository.TpmChartRepository;
 import com.loyalty.jshan.transaction.domain.Transaction;
 import com.loyalty.jshan.transaction.repository.TransactionRepository;
+
+import io.swagger.models.Response;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +55,7 @@ public class AccrualControllerTest {
         HttpEntity<Long> requestEntity = new HttpEntity<>(accrualId);
 
         //when
-        ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, ResponseEntity.class);
+        ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Object.class);
 
         //then
 
@@ -71,10 +74,10 @@ public class AccrualControllerTest {
 
         FlightAccrualRequestDto flightRequestDto = FlightAccrualRequestDto.builder()
                 .carrier("KE")
-                .depDate("20220711")
-                .depAPO("ICN")
-                .arrAPO("LAX")
-                .bookingClass("Y")
+                .depDate("20220811")
+                .depAPO("JFK")
+                .arrAPO("ICN")
+                .bookingClass("J")
                 .build();
 
         AccrualRequestDto accrualRequestDto = AccrualRequestDto.builder()
@@ -85,11 +88,13 @@ public class AccrualControllerTest {
         String url = "http://localhost:" + port + "/api/v1/accrual";
 
         //when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, accrualRequestDto, Long.class);
+        ResponseEntity<Object> responseEntity = restTemplate.postForEntity(url, accrualRequestDto, Object.class);
+        // ResponseEntity responseEntity = restTemplate.postForEntity(url, accrualRequestDto, ResponseEntity.class);
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+        // assertThat(responseEntity.getBody().)
+        // assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Transaction> transactionList = transactionRepository.findAll();
 

@@ -106,12 +106,20 @@ public class AccrualService {
     public int getAccrualRate(String carrier, String bookingClass) {
         AccrualRateChart bookingClassChart = accrualRateChartRepository.findAccrualRateByClass(carrier, bookingClass);
 
+        if(bookingClassChart == null) { 
+            throw new ApiRequestException("No accrual rate found with the given carrier and booking class (" + carrier + ", " + bookingClass + ")");
+        }
+
         return bookingClassChart.getAccrualRate();
     }
     public int getTpmValue(String depAPO, String arrAPO) {
         //TODO : when invoking tpmChartRepostiory.findBySegment, pass the current date as a parameter
         //       to get the active TPM at the moment.
         TpmChart tpmChart = tpmChartRepository.findTpmValueBySegment(depAPO, arrAPO);
+
+        if(tpmChart == null) { 
+            throw new ApiRequestException("No tpm value found with the given segment : " + depAPO + "-" + arrAPO);
+        }
 
         return tpmChart.getTpmValue();
     }

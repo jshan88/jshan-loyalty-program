@@ -25,8 +25,8 @@ public class TpmRepositoryTest {
         TpmChart tpmChart = TpmChart.builder()
                 .effectiveFrom(LocalDateTime.of(2022, 06, 01, 00, 00))
                 .effectiveTo(LocalDateTime.of(2023, 06, 12, 00, 00))
-                .depAPO("ICN")
-                .arrAPO("JFK")
+                .depAPO("JFK")
+                .arrAPO("ICN")
                 .tpmValue(6316)
                 .build();
 
@@ -37,8 +37,8 @@ public class TpmRepositoryTest {
     public void accrualRateInsertTest () {
 
         AccrualRateChart accrualRateChart = AccrualRateChart.builder()
-                .bookingClass("J")
-                .accrualRate(120)
+                .bookingClass("Y")
+                .accrualRate(100)
                 .carrier("KE")
                 .build();
 
