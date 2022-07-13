@@ -1,10 +1,10 @@
 # jshan-loyalty-program
 simple loyalty program - a small, side project that i'm wokring on off-work. 
 
-# Current Process ; 15%
-■■■■■■■■■■##############################################################
+# Current Process ; 20%
+■■■■■■■■■■■#######################################################
 1. Done with the basic framework set-up. 
-2. APIs developed so far. 
+2. APIs implemented so far. 
  
     ~ member : enrollment (post) / update (put) / get (retrieval).
     
