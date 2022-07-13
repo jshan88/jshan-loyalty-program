@@ -2,6 +2,8 @@ package com.loyalty.jshan.global.response;
 
 import java.time.LocalDateTime;
 
+import com.loyalty.jshan.global.exception.ApiErrorCode;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;  
@@ -21,4 +23,15 @@ public class ApiResponseWithError extends ApiResponse {
         this.errorType = errorType; 
         this.message = message; 
     }    
+
+    public static ApiResponseWithError createApiResponse(ApiErrorCode errorCode) { 
+
+        return ApiResponseWithError.builder() 
+                                    .status(errorCode.getHttpStatus().value())
+                                    .error(errorCode.getHttpStatus().name())
+                                    .errorType(errorCode.name())
+                                    .message(errorCode.getDescription())                
+                                    .timeStamp(LocalDateTime.now())
+                                    .build(); 
+    }
 }

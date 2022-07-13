@@ -22,10 +22,14 @@ public class AccrualController {
     @PostMapping("/api/v1/accrual")
     public ApiResponseWithSucess<AccrualResponseDto> accrualRequest(@RequestBody AccrualRequestDto requestDto) {
 
-        AccrualResponseDto responseDto = accrualService.postAccrualRequest(requestDto);         
+        AccrualResponseDto responseDto = accrualService.postAccrualRequest(requestDto);
+        // ApiResponseWithSucess<AccrualResponseDto> apiResponseWithSucess = new ApiResponseWithSucess<>();         
         
+        // return apiResponseWithSucess.createApiResponse(responseDto);
+
+        ///Changed below method to the static, as it will be broadly used without having instance variables inside. 
         return ApiResponseWithSucess.createApiResponse(responseDto);      
-        
+
     }
     @PutMapping("/api/v1/accrual/{accrualId}")
     public ResponseEntity<Long> accrualCancelRequest(@PathVariable Long accrualId) {

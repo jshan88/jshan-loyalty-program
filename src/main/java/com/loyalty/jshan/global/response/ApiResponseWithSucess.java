@@ -14,15 +14,22 @@ public class ApiResponseWithSucess<T> extends ApiResponse {
 
     private T data;
 
-    // @Builder
+    @Builder
     public ApiResponseWithSucess(int status, LocalDateTime timeStamp, T data) {
         super(status,timeStamp);
         this.data = data;
     }
 
-    // public static <T> ApiResponseWithSucess<T> createApiResponse(T data) { 
+    // changed the method to static, as it will be broadly used without instance variables inside.
+    // public ApiResponseWithSucess<T> createApiResponse(T data) {  
     public static <T> ApiResponseWithSucess<T> createApiResponse(T data) { 
-        return new ApiResponseWithSucess<T>(HttpStatus.OK.value(), LocalDateTime.now(), data);
+        
+        return ApiResponseWithSucess.<T>builder()
+                            .status(HttpStatus.OK.value())
+                            .timeStamp(LocalDateTime.now())
+                            .data(data)
+                            .build();
+        // return new ApiResponseWithSucess<T>(HttpStatus.OK.value(), LocalDateTime.now(), data);
     }
     
 }

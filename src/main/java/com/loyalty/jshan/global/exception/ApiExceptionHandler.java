@@ -13,17 +13,12 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(value = {ApiRequestException.class})
     public ResponseEntity<Object> handleApiRequestException (ApiRequestException e) {
+    // public ApiResponseWithError handleApiRequestException (ApiRequestException e) {
         // 1. Create payload containing exception details
         // HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        ApiResponseWithError apiResponse = ApiResponseWithError.builder() 
-                .status(e.getApiErrorCode().getHttpStatus().value())
-                .error(e.getApiErrorCode().getHttpStatus().name())
-                .errorType(e.getApiErrorCode().name())
-                .message(e.getApiErrorCode().getDescription())                
-                .timeStamp(LocalDateTime.now())
-                .build();
+        // ApiResponseWithError apiResponse = ApiResponseWithError.createApiResponse(e.getApiErrorCode());
 
         // 2. Return response entity.
-        return new ResponseEntity<>(apiResponse, e.getApiErrorCode().getHttpStatus());
+        return new ResponseEntity<>(ApiResponseWithError.createApiResponse(e.getApiErrorCode()), e.getApiErrorCode().getHttpStatus()); 
     }
 }
