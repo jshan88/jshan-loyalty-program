@@ -13,10 +13,12 @@ public class ApiExceptionHandler {
     public ResponseEntity<Object> handleApiRequestException (ApiRequestException e) {
         // 1. Create payload containing exception details
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        ApiException apiException = ApiException.builder()
-                .message(e.getMessage())
-                .httpStatus(badRequest)
-                .timestamp(LocalDateTime.now())
+        ApiExceptionResponse apiException = ApiExceptionResponse.builder() 
+                .status(e.getApiErrorCode().getHttpStatus().value())
+                .error(e.getApiErrorCode().getHttpStatus().name())
+                .errorType(e.getApiErrorCode().name())
+                .message(e.getApiErrorCode().getDescription())                
+                .timeStamp(LocalDateTime.now())
                 .build();
 
         // 2. Return response entity.
