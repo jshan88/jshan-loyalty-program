@@ -59,7 +59,7 @@ public class MemberControllerTest {
     public void retrieveMemberTest() {
 
         //given
-        Long id = 2L;
+        Long id = 1L;
 
         String url = "http://localhost:" + port + "/api/v1/member/" + id;
 

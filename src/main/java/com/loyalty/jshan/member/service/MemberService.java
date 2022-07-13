@@ -1,5 +1,6 @@
 package com.loyalty.jshan.member.service;
 
+import com.loyalty.jshan.global.exception.ApiErrorCode;
 import com.loyalty.jshan.global.exception.ApiRequestException;
 import com.loyalty.jshan.member.domain.address.AddressRepository;
 import com.loyalty.jshan.member.domain.contact.ContactRepository;
@@ -40,7 +41,7 @@ public class MemberService {
     public MembersResponseDto updateMember(Long id, MemberUpdateDto requestDto) {
 
         Member member = memberRepository.findById(id)
-                .orElseThrow(()->new ApiRequestException("No member found with the given id : " + id));
+                .orElseThrow(()->new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
 
         member.updateMember(requestDto.getFirstName(), requestDto.getLastName(), requestDto.getDateOfBirth());
         contactService.updateContact(member, requestDto.getContactUpdateDto());
@@ -51,7 +52,7 @@ public class MemberService {
     public MembersResponseDto searchMember(Long id) {
 
         Member member = memberRepository.findById(id)
-                .orElseThrow(()->new ApiRequestException("No member found with the given id : " + id));
+                .orElseThrow(()->new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
 
         return new MembersResponseDto(member);
     }

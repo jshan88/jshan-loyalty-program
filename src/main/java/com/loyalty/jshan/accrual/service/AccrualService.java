@@ -4,6 +4,7 @@ import com.loyalty.jshan.accrual.domain.AccrualRateChart;
 import com.loyalty.jshan.accrual.domain.TpmChart;
 import com.loyalty.jshan.accrual.dto.AccrualRequestDto;
 import com.loyalty.jshan.accrual.dto.FlightAccrualRequestDto;
+import com.loyalty.jshan.global.exception.ApiErrorCode;
 import com.loyalty.jshan.global.exception.ApiRequestException;
 import com.loyalty.jshan.accrual.repository.AccrualRateChartRepository;
 import com.loyalty.jshan.accrual.repository.TpmChartRepository;
@@ -29,11 +30,11 @@ public class AccrualService {
     public Long putAccrualCancelRequest(Long accrualId) {
 
         Transaction cancelTxn = transactionRepository.findById(accrualId)
-                .orElseThrow(()-> new ApiRequestException("No transaction found with the given ID : " + accrualId));
+                .orElseThrow(()-> new ApiRequestException(ApiErrorCode.TRANSACTION_NOT_FOUND));
 
         //TODO : create user-defined exception class.
         if(cancelTxn.getStatus() == TransactionStatus.CANCELLED) {
-            throw new ApiRequestException("Transaction Already Cancelled");
+            throw new ApiRequestException(ApiErrorCode.ACCRUAL_ALREADY_CANCELLED);
         }
         cancelTxn.cancelTransaction();
 
@@ -60,7 +61,7 @@ public class AccrualService {
 
         Long memberId = accrualRequestDto.getMemberId();
         Member member = memberRepository.findById(memberId).orElseThrow(()
-                -> new ApiRequestException("no member found with the given id : " + memberId));
+                -> new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
 
         //TODO : considered the flight accrual request only for now.
         return postFlightAccrualRequest(member, accrualRequestDto.getFlightRequest());
@@ -107,7 +108,7 @@ public class AccrualService {
         AccrualRateChart bookingClassChart = accrualRateChartRepository.findAccrualRateByClass(carrier, bookingClass);
 
         if(bookingClassChart == null) { 
-            throw new ApiRequestException("No accrual rate found with the given carrier and booking class (" + carrier + ", " + bookingClass + ")");
+            throw new ApiRequestException(ApiErrorCode.ACCRUAL_RATE_NOT_FOUND);
         }
 
         return bookingClassChart.getAccrualRate();
@@ -118,7 +119,7 @@ public class AccrualService {
         TpmChart tpmChart = tpmChartRepository.findTpmValueBySegment(depAPO, arrAPO);
 
         if(tpmChart == null) { 
-            throw new ApiRequestException("No tpm value found with the given segment : " + depAPO + "-" + arrAPO);
+            throw new ApiRequestException(ApiErrorCode.TPM_NOT_FOUND);
         }
 
         return tpmChart.getTpmValue();
