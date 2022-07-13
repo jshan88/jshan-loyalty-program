@@ -11,6 +11,7 @@ public enum ApiErrorCode {
     
     // 400 BAD REQUEST
     ACCRUAL_ALREADY_CANCELLED(HttpStatus.BAD_REQUEST, "Accrual has been cancelled already."),
+    WRONG_TRANSACTION_TYPE(HttpStatus.BAD_REQUEST, "Action not allowed with the given transaction type"),
     
     // 404 NOT FOUND
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "No member found with the given id."),

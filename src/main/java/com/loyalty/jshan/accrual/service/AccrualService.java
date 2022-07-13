@@ -3,7 +3,9 @@ package com.loyalty.jshan.accrual.service;
 import com.loyalty.jshan.accrual.domain.AccrualRateChart;
 import com.loyalty.jshan.accrual.domain.TpmChart;
 import com.loyalty.jshan.accrual.dto.AccrualRequestDto;
+import com.loyalty.jshan.accrual.dto.AccrualResponseDto;
 import com.loyalty.jshan.accrual.dto.FlightAccrualRequestDto;
+import com.loyalty.jshan.accrual.dto.FlightAccrualResponseDto;
 import com.loyalty.jshan.global.exception.ApiErrorCode;
 import com.loyalty.jshan.global.exception.ApiRequestException;
 import com.loyalty.jshan.accrual.repository.AccrualRateChartRepository;
@@ -31,8 +33,10 @@ public class AccrualService {
 
         Transaction cancelTxn = transactionRepository.findById(accrualId)
                 .orElseThrow(()-> new ApiRequestException(ApiErrorCode.TRANSACTION_NOT_FOUND));
-
-        //TODO : create user-defined exception class.
+        
+        if(!cancelTxn.getTxnType().equals(TransactionType.ACCRUAL)) { 
+            throw new ApiRequestException(ApiErrorCode.WRONG_TRANSACTION_TYPE);
+        }
         if(cancelTxn.getStatus() == TransactionStatus.CANCELLED) {
             throw new ApiRequestException(ApiErrorCode.ACCRUAL_ALREADY_CANCELLED);
         }
@@ -57,18 +61,23 @@ public class AccrualService {
         return transactionRepository.save(cancellationTxn).getId();
     }
 
-    public Long postAccrualRequest(AccrualRequestDto accrualRequestDto)  {
+    public AccrualResponseDto postAccrualRequest(AccrualRequestDto accrualRequestDto)  {
 
         Long memberId = accrualRequestDto.getMemberId();
         Member member = memberRepository.findById(memberId).orElseThrow(()
                 -> new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
 
         //TODO : considered the flight accrual request only for now.
-        return postFlightAccrualRequest(member, accrualRequestDto.getFlightRequest());
+        FlightAccrualResponseDto flightResponse = postFlightAccrualRequest(member, accrualRequestDto.getFlightRequest());
+
+        return AccrualResponseDto.builder()
+                                .flightResponse(flightResponse)
+                                .memberId(member.getId())
+                                .build();
     }
 
     @Transactional
-    public Long postFlightAccrualRequest(Member member, FlightAccrualRequestDto requestDto) {
+    public FlightAccrualResponseDto postFlightAccrualRequest(Member member, FlightAccrualRequestDto requestDto) {
 
         //TODO : dupe check. create a new method in transactionRepository .
         int accruedMileage = getMileageToAccrue(requestDto.getCarrier(), requestDto.getBookingClass(),
@@ -95,7 +104,10 @@ public class AccrualService {
         member.updateMember(accruedMileage);
         transactionRepository.save(txn);
 
-        return txn.getId();
+        return FlightAccrualResponseDto.builder().carrier(txn.getSourceSubType()).bookingClass(txn.getBookingClass())
+                                                .depAPO(txn.getDepAPO()).arrAPO(txn.getArrAPO()).depDate(txn.getDepartureDate())
+                                                .flightNumber(txn.getFlightNumber())
+                                                .build(); 
     }
 
     public int getMileageToAccrue(String carrier, String bookingClass, String depApo, String arrApo) {
