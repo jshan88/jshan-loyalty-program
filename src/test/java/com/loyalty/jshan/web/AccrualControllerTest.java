@@ -49,16 +49,14 @@ public class AccrualControllerTest {
     public void putAccrualCancelTest() {
 
         //given
-        Long accrualId = 2L;
+        Long accrualId = 6L;
         String url = "http://localhost:" + port + "/api/v1/accrual/" + accrualId;
-
         HttpEntity<Long> requestEntity = new HttpEntity<>(accrualId);
 
         //when
         ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Object.class);
 
         //then
-
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Transaction> transactionList = transactionRepository.findAll();
         transactionList.forEach(txn -> {

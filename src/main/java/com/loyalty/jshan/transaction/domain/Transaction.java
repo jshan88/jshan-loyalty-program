@@ -22,8 +22,8 @@ public class Transaction extends CommonEntity {
     private Member member;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cancelTxnId", referencedColumnName = "id")
-    private Transaction cancelTransaction;
+    @JoinColumn(name = "cancelledTxnId", referencedColumnName = "id")
+    private Transaction cancelledTransaction;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TXN_TYPE", length = 10, nullable = false)
@@ -53,10 +53,10 @@ public class Transaction extends CommonEntity {
     private int mileage;
 
     @Builder
-    public Transaction(Transaction cancelTransaction, Member member, TransactionType txnType, TransactionSubType txnSubType,
+    public Transaction(Transaction cancelledTransaction, Member member, TransactionType txnType, TransactionSubType txnSubType,
                        TransactionStatus status, SourceType sourceType, String sourceSubType, String bookingClass,
                        String depAPO, String arrAPO, String departureDate, String flightNumber, int mileage) {
-        this.cancelTransaction = cancelTransaction;
+        this.cancelledTransaction = cancelledTransaction;
         this.member = member;
         this.txnType = txnType;
         this.txnSubType = txnSubType;
@@ -70,9 +70,38 @@ public class Transaction extends CommonEntity {
         this.flightNumber = flightNumber;
         this.mileage = mileage;
     }
-    public void cancelTransaction() {
+    public Transaction cancelTransaction() {
+
+        TransactionType nextTxnType;
         this.status = TransactionStatus.CANCELLED;
-        this.member.updateMember(this.mileage*-1);
+
+        if(this.txnType.equals(TransactionType.REDEMPTION)) {
+            this.member.updateMember(this.mileage);
+            nextTxnType = TransactionType.ACCRUAL;
+        } else {
+            this.member.updateMember(this.mileage*-1);
+            nextTxnType = TransactionType.REDEMPTION;
+        }
+
+        return generateCancellationTxn(nextTxnType);
+    }
+    public Transaction generateCancellationTxn(TransactionType nextTxnType) {
+
+        return Transaction.builder()
+                .cancelledTransaction(this)
+                .txnType(nextTxnType)
+                .txnSubType(TransactionSubType.CANCELLATION)
+                .depAPO(this.getDepAPO())
+                .arrAPO(this.getArrAPO())
+                .departureDate(this.getDepartureDate())
+                .flightNumber(this.getFlightNumber())
+                .bookingClass(this.getBookingClass())
+                .mileage(this.getMileage())
+                .member(this.getMember())
+                .sourceType(this.getSourceType())
+                .sourceSubType(this.getSourceSubType())
+                .status(TransactionStatus.PROCESSED)
+                .build();
     }
 
   ////  private TransactionStatus status; // PROCESSED, CANCELLED

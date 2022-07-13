@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class AccrualRequestDto {
 
     private Long memberId;
-
     private FlightAccrualRequestDto flightRequest;
 
     @Builder

@@ -23,10 +23,8 @@ public class AccrualController {
     public ApiResponseWithSucess<AccrualResponseDto> accrualRequest(@RequestBody AccrualRequestDto requestDto) {
 
         AccrualResponseDto responseDto = accrualService.postAccrualRequest(requestDto);
-        // ApiResponseWithSucess<AccrualResponseDto> apiResponseWithSucess = new ApiResponseWithSucess<>();         
-        
+        // ApiResponseWithSucess<AccrualResponseDto> apiResponseWithSucess = new ApiResponseWithSucess<>();
         // return apiResponseWithSucess.createApiResponse(responseDto);
-
         ///Changed below method to the static, as it will be broadly used without having instance variables inside. 
         return ApiResponseWithSucess.createApiResponse(responseDto);      
 

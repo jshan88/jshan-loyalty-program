@@ -22,12 +22,12 @@ public class MemberUpdateDto {
 
     @Builder
     public MemberUpdateDto(String firstName, String lastName, LocalDateTime dateOfBirth,
-                           ContactUpdateDto contactUpdateDto, List<AddressUpdateDto> addressUpdateDtos) {
+                           ContactUpdateDto contactUpdateDto, List<AddressUpdateDto> addressUpdateDtoList) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.contactUpdateDto = contactUpdateDto;
-        this.addressUpdateDtoList = addressUpdateDtos;
+        this.addressUpdateDtoList = addressUpdateDtoList;
     }
 }

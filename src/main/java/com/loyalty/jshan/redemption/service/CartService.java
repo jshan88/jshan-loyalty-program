@@ -30,8 +30,6 @@ public class CartService {
     private final MemberRepository memberRepository; 
     private final ItemService itemService;
 
-
-
     public CartResponseDto retrieveCartByMember(Long memberId) {
 
         Cart cart = cartRepository.findByMemberId(memberId);
@@ -63,7 +61,6 @@ public class CartService {
         };
 
         itemService.addFlightItemToCart(cart, cartRequestDto.getFlightItemList());
-        return cartRepository.save(cart).getId(); 
-
+        return cartRepository.save(cart).getId();
     }
 }

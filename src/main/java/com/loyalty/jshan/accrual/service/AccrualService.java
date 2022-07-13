@@ -40,23 +40,8 @@ public class AccrualService {
         if(cancelTxn.getStatus() == TransactionStatus.CANCELLED) {
             throw new ApiRequestException(ApiErrorCode.ACCRUAL_ALREADY_CANCELLED);
         }
-        cancelTxn.cancelTransaction();
 
-        Transaction cancellationTxn = Transaction.builder()
-                .cancelTransaction(cancelTxn)
-                .txnType(TransactionType.REDEMPTION)
-                .txnSubType(TransactionSubType.CANCELLATION)
-                .depAPO(cancelTxn.getDepAPO())
-                .arrAPO(cancelTxn.getArrAPO())
-                .departureDate(cancelTxn.getDepartureDate())
-                .flightNumber(cancelTxn.getFlightNumber())
-                .bookingClass(cancelTxn.getBookingClass())
-                .mileage(cancelTxn.getMileage())
-                .member(cancelTxn.getMember())
-                .sourceType(cancelTxn.getSourceType())
-                .sourceSubType(cancelTxn.getSourceSubType())
-                .status(TransactionStatus.PROCESSED)
-                .build();
+        Transaction cancellationTxn = cancelTxn.cancelTransaction();
 
         return transactionRepository.save(cancellationTxn).getId();
     }
@@ -85,7 +70,6 @@ public class AccrualService {
 
         //TODO : Status to be "In-progress",
         //  if there's an engine that runs at the back and process those that are in-progress status
-
         Transaction txn = Transaction.builder()
                                 .member(member)
                                 .txnType(TransactionType.ACCRUAL)
