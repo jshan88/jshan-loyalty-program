@@ -1,4 +1,4 @@
-package com.loyalty.jshan.global.response;
+package com.loyalty.jshan.global.apiResponse;
 
 import java.time.LocalDateTime;
 

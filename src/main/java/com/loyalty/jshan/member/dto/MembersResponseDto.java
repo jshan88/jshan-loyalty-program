@@ -31,11 +31,5 @@ public class MembersResponseDto {
         for(int i = 0; i < entity.getAddressList().size(); i++) {
             this.addressResponseDtoList.add(new AddressResponseDto(entity.getAddressList().get(i)));
         }
-//        this.addressResponseDtoList = entity.getAddressList().;
-//        this.contactInfo = ContactResponseDto.builder()
-//                .mobileNumber(entity.getContact().getMobileNumber())
-//                .homePhoneNumber(entity.getContact().getHomePhoneNumber())
-//                .emailAddress(entity.getContact().getEmailAddress())
-//                .build();
     }
 }

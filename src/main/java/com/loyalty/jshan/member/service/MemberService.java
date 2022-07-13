@@ -20,8 +20,6 @@ import com.loyalty.jshan.member.dto.MemberEnrollmentDto;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final ContactRepository contactRepository;
-    private final AddressRepository addressRepository;
     private final AddressService addressService;
     private final ContactService contactService;
 

@@ -1,4 +1,4 @@
-package com.loyalty.jshan.global.response;
+package com.loyalty.jshan.global.apiResponse;
  
 import lombok.Getter; 
 // import org.springframework.http.HttpStatus; 
