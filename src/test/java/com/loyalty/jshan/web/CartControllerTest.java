@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.loyalty.jshan.redemption.domain.item.flight.FlightType;
+import com.loyalty.jshan.redemption.domain.item.flight.enums.FlightType;
 import com.loyalty.jshan.redemption.dto.CartRequestDto;
 import com.loyalty.jshan.redemption.dto.item.flight.FlightItemRequestDto;
 import com.loyalty.jshan.redemption.repository.CartRepository;

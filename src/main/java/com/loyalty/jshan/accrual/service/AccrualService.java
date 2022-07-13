@@ -13,6 +13,10 @@ import com.loyalty.jshan.accrual.repository.TpmChartRepository;
 import com.loyalty.jshan.member.domain.Member;
 import com.loyalty.jshan.member.repository.MemberRepository;
 import com.loyalty.jshan.transaction.domain.*;
+import com.loyalty.jshan.transaction.domain.enums.SourceType;
+import com.loyalty.jshan.transaction.domain.enums.TransactionStatus;
+import com.loyalty.jshan.transaction.domain.enums.TransactionSubType;
+import com.loyalty.jshan.transaction.domain.enums.TransactionType;
 import com.loyalty.jshan.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,7 +38,7 @@ public class AccrualService {
         Transaction cancelTxn = transactionRepository.findById(accrualId)
                 .orElseThrow(()-> new ApiRequestException(ApiErrorCode.TRANSACTION_NOT_FOUND));
         
-        if(!cancelTxn.getTxnType().equals(TransactionType.ACCRUAL)) { 
+        if(!cancelTxn.getTxnType().equals(TransactionType.ACCRUAL)) {
             throw new ApiRequestException(ApiErrorCode.WRONG_TRANSACTION_TYPE);
         }
         if(cancelTxn.getStatus() == TransactionStatus.CANCELLED) {

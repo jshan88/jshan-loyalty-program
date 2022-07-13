@@ -2,6 +2,10 @@ package com.loyalty.jshan.transaction.domain;
 
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.member.domain.Member;
+import com.loyalty.jshan.transaction.domain.enums.SourceType;
+import com.loyalty.jshan.transaction.domain.enums.TransactionStatus;
+import com.loyalty.jshan.transaction.domain.enums.TransactionSubType;
+import com.loyalty.jshan.transaction.domain.enums.TransactionType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

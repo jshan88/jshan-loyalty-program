@@ -2,7 +2,7 @@ package com.loyalty.jshan.web;
 
 import com.loyalty.jshan.member.domain.address.Address;
 import com.loyalty.jshan.member.domain.address.AddressRepository;
-import com.loyalty.jshan.member.domain.address.enumAddress.AddressType;
+import com.loyalty.jshan.member.domain.address.enums.AddressType;
 import com.loyalty.jshan.member.domain.contact.Contact;
 import com.loyalty.jshan.member.domain.contact.ContactRepository;
 import com.loyalty.jshan.member.domain.Member;

@@ -2,7 +2,7 @@ package com.loyalty.jshan.domain;
 
 import com.loyalty.jshan.redemption.domain.Cart;
 import com.loyalty.jshan.redemption.domain.item.flight.FlightItem;
-import com.loyalty.jshan.redemption.domain.item.flight.FlightType;
+import com.loyalty.jshan.redemption.domain.item.flight.enums.FlightType;
 import com.loyalty.jshan.redemption.repository.CartRepository;
 import com.loyalty.jshan.redemption.repository.ItemRepository;
 import com.loyalty.jshan.redemption.repository.OrderRepository;

@@ -1,4 +1,4 @@
-package com.loyalty.jshan.member.domain.address.enumAddress;
+package com.loyalty.jshan.member.domain.address.enums;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

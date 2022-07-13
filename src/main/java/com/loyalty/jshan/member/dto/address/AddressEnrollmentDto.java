@@ -1,7 +1,7 @@
 package com.loyalty.jshan.member.dto.address;
 
 import com.loyalty.jshan.member.domain.address.Address;
-import com.loyalty.jshan.member.domain.address.enumAddress.AddressType;
+import com.loyalty.jshan.member.domain.address.enums.AddressType;
 
 import lombok.Builder;
 import lombok.Getter;

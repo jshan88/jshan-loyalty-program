@@ -1,7 +1,7 @@
 package com.loyalty.jshan.member.domain.address;
 
 import com.loyalty.jshan.global.CommonEntity;
-import com.loyalty.jshan.member.domain.address.enumAddress.AddressType;
+import com.loyalty.jshan.member.domain.address.enums.AddressType;
 import com.loyalty.jshan.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;

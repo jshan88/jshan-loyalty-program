@@ -1,6 +1,6 @@
 package com.loyalty.jshan.domain;
 
-import com.loyalty.jshan.member.domain.address.enumAddress.AddressType;
+import com.loyalty.jshan.member.domain.address.enums.AddressType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

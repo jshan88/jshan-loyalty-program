@@ -10,16 +10,14 @@ import lombok.NoArgsConstructor;
 @Getter
 public class OrderRequestDto {
 
-    private Long memberId; 
-
-    @Enumerated(EnumType.STRING)
-    private RequestType requestType;
+    private Long memberId;
+    private String requestType; // Issue, Reissue, Refund, Void
     private int redeemMileage;
     private int refundMileage;
     private CartRequestDto cart; 
 
     @Builder
-    public OrderRequestDto (Long memberId, RequestType requestType, int redeemMileage, int refundMileage, CartRequestDto cart) { 
+    public OrderRequestDto (Long memberId, String requestType, int redeemMileage, int refundMileage, CartRequestDto cart) {
         this.memberId = memberId;
         this.requestType = requestType;
         this.redeemMileage = redeemMileage;

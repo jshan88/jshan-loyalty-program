@@ -2,6 +2,7 @@ package com.loyalty.jshan.redemption.domain;
 
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.member.domain.Member;
+import com.loyalty.jshan.redemption.domain.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
