@@ -93,7 +93,7 @@ public class MemberControllerTest {
                 .firstName("JAYSON")
                 .lastName("HAN")
                 .contactUpdateDto(contactUpdateDto)
-                .addressUpdateDtos(addressList)
+                .addressUpdateDtoList(addressList)
                 .build();
 
         Long id = 1L;
