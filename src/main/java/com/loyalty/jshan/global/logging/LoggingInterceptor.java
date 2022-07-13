@@ -24,23 +24,20 @@ public class LoggingInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception { 
         
         // if (request.getClass().getName().contains("SecurityContextHolderAwareRequestWrapper")) 
-        //     return;  
+        //     return;
         
         final ContentCachingRequestWrapper cachingRequest = (ContentCachingRequestWrapper) request;
         final ContentCachingResponseWrapper cachingResponse = (ContentCachingResponseWrapper) response;        
 
-        if (cachingRequest.getContentType() != null && cachingRequest.getContentType().contains("application/json")) {            
-        
-            if (cachingRequest.getContentAsByteArray() != null && cachingRequest.getContentAsByteArray().length != 0){               
-
-                log.info("Request Body : {}", objectMapper.readTree(cachingRequest.getContentAsByteArray()));         
+        if (cachingRequest.getContentType() != null && cachingRequest.getContentType().contains("application/json")){
+            if (cachingRequest.getContentAsByteArray() != null && cachingRequest.getContentAsByteArray().length != 0){
+                log.info("Request Body : {}", objectMapper.readTree(cachingRequest.getContentAsByteArray()));
             }       
-        }       
+        }
 
-        if (cachingResponse.getContentType() != null && cachingResponse.getContentType().contains("application/json")) {      
+        if (cachingResponse.getContentType() != null && cachingResponse.getContentType().contains("application/json")) {
 
-            if (cachingResponse.getContentAsByteArray() != null && cachingResponse.getContentAsByteArray().length != 0) {    
-
+            if (cachingResponse.getContentAsByteArray() != null && cachingResponse.getContentAsByteArray().length != 0) {
                 log.info("Response Body : {}", objectMapper.readTree(cachingResponse.getContentAsByteArray()));     
             }     
         }  

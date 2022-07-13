@@ -1,4 +1,4 @@
-package com.loyalty.jshan.global.exception;
+package com.loyalty.jshan.global.apiException;
 
 import org.springframework.http.HttpStatus;
 

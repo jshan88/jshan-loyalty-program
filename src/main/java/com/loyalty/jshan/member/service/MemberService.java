@@ -1,9 +1,7 @@
 package com.loyalty.jshan.member.service;
 
-import com.loyalty.jshan.global.exception.ApiErrorCode;
-import com.loyalty.jshan.global.exception.ApiRequestException;
-import com.loyalty.jshan.member.domain.address.AddressRepository;
-import com.loyalty.jshan.member.domain.contact.ContactRepository;
+import com.loyalty.jshan.global.apiException.ApiErrorCode;
+import com.loyalty.jshan.global.apiException.ApiRequestException;
 import com.loyalty.jshan.member.domain.Member;
 import com.loyalty.jshan.member.repository.MemberRepository;
 import com.loyalty.jshan.member.service.address.AddressService;

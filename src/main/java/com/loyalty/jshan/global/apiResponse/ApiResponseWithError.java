@@ -2,7 +2,7 @@ package com.loyalty.jshan.global.apiResponse;
 
 import java.time.LocalDateTime;
 
-import com.loyalty.jshan.global.exception.ApiErrorCode;
+import com.loyalty.jshan.global.apiException.ApiErrorCode;
 
 import lombok.Builder;
 import lombok.Getter;

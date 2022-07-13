@@ -15,7 +15,8 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 @Component
 public class CustomServletWrapperFilter extends OncePerRequestFilter{ 
 
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
         ContentCachingRequestWrapper wrappingRequest= new ContentCachingRequestWrapper(request);
         ContentCachingResponseWrapper wrappingResponse = new ContentCachingResponseWrapper(response);
