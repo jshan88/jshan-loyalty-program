@@ -1,5 +1,5 @@
 # jshan-loyalty-program
-simple loyalty program - a small, side project that i'm wokring on off-work. 
+simple loyalty program - a small, side project that i'm wokring on off-work. (toy project)
 
 # Current Process ; 20%
 ■■■■■■■■■■■#######################################################
