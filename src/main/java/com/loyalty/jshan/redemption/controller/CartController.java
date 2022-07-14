@@ -17,7 +17,6 @@ public class CartController {
     public ApiResponseWithSuccess<CartResponseDto> retrieveCart(@PathVariable Long memberId) {
 
         return ApiResponseWithSuccess.createApiResponse(cartService.retrieveCartByMember(memberId));
-        // return cartService.retrieveCartByMember(memberId);
     }
 
     @PostMapping("/api/v1/cart")

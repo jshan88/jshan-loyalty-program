@@ -25,7 +25,6 @@ public abstract class Item extends CommonEntity {
 
     private int mileage;
 
-
     public void addMoreItems(int additionalCount) {
         this.itemCount += additionalCount;
     }

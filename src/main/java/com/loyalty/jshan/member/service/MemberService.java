@@ -50,7 +50,6 @@ public class MemberService {
         addressService.updateAddressList(member, requestDto.getAddressUpdateDtoList());
 
         return toMemberResponse(member);
-        // return new MemberResponseDto(member); // to be checked.
     }
     public MemberResponseDto searchMember(Long id) {
 

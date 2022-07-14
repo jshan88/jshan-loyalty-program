@@ -17,8 +17,8 @@ public class ContactService {
     public void updateContact (Member member, ContactUpdateDto contactUpdateDto) {
 
         member.getContact().updateContact(contactUpdateDto.getMobileNumber()
-                , contactUpdateDto.getHomePhoneNumber()
-                , contactUpdateDto.getEmailAddress());
+                                        , contactUpdateDto.getHomePhoneNumber()
+                                        , contactUpdateDto.getEmailAddress());
     }
 
     public ContactResponseDto toContactResponse(Contact contact) { 

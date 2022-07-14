@@ -18,31 +18,31 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
 
-    public void enrollAddress(Member member, List<AddressEnrollmentDto> requestDtos) {
+    public void enrollAddress(Member member, List<AddressEnrollmentDto> requestDtoList) {
 
-        for (AddressEnrollmentDto addressEnrollmentDto : requestDtos) {
-            Address address = addressEnrollmentDto.toEntity();
-            addressRepository.save(address);
-            member.mapAddressToMember(address);
-        }
+        requestDtoList.forEach(addressEnrollmentDto -> {
+           Address address = addressEnrollmentDto.toEntity();
+           addressRepository.save(address);
+           member.mapAddressToMember(address);
+        });
     }
 
-    public void updateAddressList(Member member, List<AddressUpdateDto> requestDtos) {
+    public void updateAddressList(Member member, List<AddressUpdateDto> requestDtoList) {
 
         // Update Addresses with the same Address Types that are given.
         for (int i = 0; i < member.getAddressList().size(); i++) {
-            for(int j = 0; j < requestDtos.size(); j++) {
-                if(member.getAddressList().get(i).getAddressType() == requestDtos.get(j).getAddressType()) {
-                    updateAddress(member.getAddressList().get(i), requestDtos.get(j));
-                    requestDtos.remove(j);
+            for(int j = 0; j < requestDtoList.size(); j++) {
+                if(member.getAddressList().get(i).getAddressType() == requestDtoList.get(j).getAddressType()) {
+                    updateAddress(member.getAddressList().get(i), requestDtoList.get(j));
+                    requestDtoList.remove(j);
                     break;
                 }
             }
         }
         // Insert Addresses that do not exist with the given Address Type.
-        if(requestDtos.size() > 0) {
-            requestDtos.forEach(addr -> {
-                Address address = addr.toEntity();
+        if(requestDtoList.size() > 0) {
+            requestDtoList.forEach(addressUpdateDto -> {
+                Address address = addressUpdateDto.toEntity();
                 addressRepository.save(address);
                 member.mapAddressToMember(address);
             });

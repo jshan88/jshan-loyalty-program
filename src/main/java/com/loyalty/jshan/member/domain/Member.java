@@ -47,19 +47,20 @@ public class Member extends CommonEntity {
     // orphanRemoval : list에서 remove 되는 address는 삭제처리.
     private List<Address> addressList = new ArrayList<>();
 
-    public void mapAddressToMember(Address address) {
-        address.mapMemberToAddress(this);
-        this.addressList.add(address);
-    }
-
     @Builder
-    public Member (String firstName, String lastName, LocalDateTime dateOfBirth, int remainMileage, Contact contact, List<Address> addressList) {
+    public Member (String firstName, String lastName, LocalDateTime dateOfBirth,
+                   int remainMileage, Contact contact, List<Address> addressList) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.remainMileage = remainMileage;
         this.contact = contact;
         this.addressList = addressList;
+    }
+
+    public void mapAddressToMember(Address address) {
+        address.mapMemberToAddress(this);
+        this.addressList.add(address);
     }
 
     public void updateMember(String firstName, String lastName, LocalDateTime dateOfBirth) {
