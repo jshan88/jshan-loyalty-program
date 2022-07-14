@@ -33,6 +33,30 @@ public class CartService {
     public CartResponseDto retrieveCartByMember(Long memberId) {
 
         Cart cart = cartRepository.findByMemberId(memberId);
+        
+        return toCartResponse(cart);
+    }
+
+    @Transactional
+    public CartResponseDto updateCart(CartRequestDto cartRequestDto) {
+
+        Long memberId = cartRequestDto.getMemberId();
+        Member member = memberRepository.findById(memberId).orElseThrow(()
+                -> new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
+        Cart cart = cartRepository.findByMemberId(memberId);
+
+        if(cart == null) {
+            cart = cartRequestDto.toEntity(member); // initiate a new cart, if there's no existing cart. 
+        };
+
+        itemService.addFlightItemToCart(cart, cartRequestDto.getFlightItemList());
+        // return cartRepository.save(cart).getId();
+
+        return toCartResponse(cartRepository.save(cart));
+    }
+
+    public CartResponseDto toCartResponse(Cart cart) { 
+        
         List<FlightItemResponseDto> flightList = new ArrayList<>();
 
         cart.getItemList().forEach(lst -> {
@@ -46,21 +70,5 @@ public class CartService {
                 .totalMileage(cart.getTotalMileage())
                 .flightItemList(flightList)
                 .build();
-    }
-
-    @Transactional
-    public Long updateCart(CartRequestDto cartRequestDto) {
-
-        Long memberId = cartRequestDto.getMemberId();
-        Member member = memberRepository.findById(memberId).orElseThrow(()
-                -> new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
-        Cart cart = cartRepository.findByMemberId(memberId);
-
-        if(cart == null) {
-            cart = cartRequestDto.toEntity(member); // initiate a new cart, if there's no existing cart. 
-        };
-
-        itemService.addFlightItemToCart(cart, cartRequestDto.getFlightItemList());
-        return cartRepository.save(cart).getId();
     }
 }

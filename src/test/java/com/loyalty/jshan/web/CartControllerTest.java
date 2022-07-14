@@ -88,7 +88,7 @@ public class CartControllerTest {
 
 
         //when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, cartRequestDto, Long.class); 
+        ResponseEntity<Object> responseEntity = restTemplate.postForEntity(url, cartRequestDto, Object.class); 
 
 
 

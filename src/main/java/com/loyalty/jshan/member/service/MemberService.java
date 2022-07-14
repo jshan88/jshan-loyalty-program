@@ -7,8 +7,13 @@ import com.loyalty.jshan.member.repository.MemberRepository;
 import com.loyalty.jshan.member.service.address.AddressService;
 import com.loyalty.jshan.member.service.contact.ContactService;
 import com.loyalty.jshan.member.dto.MemberUpdateDto;
-import com.loyalty.jshan.member.dto.MembersResponseDto;
+import com.loyalty.jshan.member.dto.address.AddressResponseDto;
+import com.loyalty.jshan.member.dto.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.loyalty.jshan.member.dto.MemberEnrollmentDto;
@@ -22,7 +27,7 @@ public class MemberService {
     private final ContactService contactService;
 
     @Transactional
-    public Long enrollMember(MemberEnrollmentDto requestDto) {
+    public MemberResponseDto enrollMember(MemberEnrollmentDto requestDto) {
 
         //Member Creation
         Member member = requestDto.toMemberEntity();
@@ -31,10 +36,11 @@ public class MemberService {
         //Address Information of the member.
         addressService.enrollAddress(member, requestDto.getAddressInfo());
 
-        return member.getId();
+        return toMemberResponse(member); 
+
     }
     @Transactional
-    public MembersResponseDto updateMember(Long id, MemberUpdateDto requestDto) {
+    public MemberResponseDto updateMember(Long id, MemberUpdateDto requestDto) {
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(()->new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
@@ -43,13 +49,26 @@ public class MemberService {
         contactService.updateContact(member, requestDto.getContactUpdateDto());
         addressService.updateAddressList(member, requestDto.getAddressUpdateDtoList());
 
-        return new MembersResponseDto(member); // to be checked.
+        return toMemberResponse(member);
+        // return new MemberResponseDto(member); // to be checked.
     }
-    public MembersResponseDto searchMember(Long id) {
+    public MemberResponseDto searchMember(Long id) {
 
         Member member = memberRepository.findById(id)
                 .orElseThrow(()->new ApiRequestException(ApiErrorCode.MEMBER_NOT_FOUND));
 
-        return new MembersResponseDto(member);
+        return toMemberResponse(member);
+    }
+
+    public MemberResponseDto toMemberResponse(Member member) {  
+
+        return MemberResponseDto.builder()
+                    .firstName(member.getFirstName())
+                    .lastName(member.getLastName())
+                    .dateOfBirth(member.getDateOfBirth())
+                    .remainMileage(member.getRemainMileage())
+                    .contactResponseDto(contactService.toContactResponse(member.getContact()))
+                    .addressResponseDtoList(addressService.toAddressResponseList(member.getAddressList()))
+                    .build();
     }
 }

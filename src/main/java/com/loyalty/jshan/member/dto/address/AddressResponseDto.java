@@ -1,6 +1,5 @@
 package com.loyalty.jshan.member.dto.address;
-
-import com.loyalty.jshan.member.domain.address.Address;
+ 
 import com.loyalty.jshan.member.domain.address.enums.AddressType;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,11 +16,11 @@ public class AddressResponseDto {
     private String address2;
 
     @Builder
-    public AddressResponseDto(Address entity) {
-        this.addressType = entity.getAddressType();
-        this.country = entity.getCountry();
-        this.zipCode = entity.getZipCode();
-        this.address1 = entity.getAddress1();
-        this.address2 = entity.getAddress2();
+    public AddressResponseDto(AddressType addressType, String country, String zipCode, String address1, String address2) {
+        this.addressType = addressType;
+        this.country = country;
+        this.zipCode = zipCode;
+        this.address1 = address1;
+        this.address2 = address2;
     }
 }
