@@ -28,11 +28,12 @@ public class AccrualController {
 
     }
     @PutMapping("/api/v1/accrual/{accrualId}")
-    public ResponseEntity<Long> accrualCancelRequest(@PathVariable Long accrualId) {
+    public ApiResponseWithSuccess<AccrualResponseDto> accrualCancelRequest(@PathVariable Long accrualId) {
 
-        Long id = accrualService.putAccrualCancelRequest(accrualId);
-//        return accrualService.putAccrualCancelRequest(accrualId);
-        return ResponseEntity.status(HttpStatus.OK).body(id);
+        AccrualResponseDto responseDto = accrualService.putAccrualCancelRequest(accrualId);
+        
+        // return ResponseEntity.status(HttpStatus.OK).body(id);
+        return ApiResponseWithSuccess.createApiResponse(responseDto);
     }
 
 }

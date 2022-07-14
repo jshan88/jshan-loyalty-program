@@ -32,8 +32,9 @@ public class AccrualService {
     private final MemberRepository memberRepository;
     private final TransactionRepository transactionRepository;
 
+    //TODO : TRY-CATCH를 AOP로 일괄 적용 예정이라 일단 안넣었음. 
     @Transactional
-    public Long putAccrualCancelRequest(Long accrualId) {
+    public AccrualResponseDto putAccrualCancelRequest(Long accrualId) {
 
         Transaction cancelTxn = transactionRepository.findById(accrualId)
                 .orElseThrow(()-> new ApiRequestException(ApiErrorCode.TRANSACTION_NOT_FOUND));
@@ -45,9 +46,10 @@ public class AccrualService {
             throw new ApiRequestException(ApiErrorCode.ACCRUAL_ALREADY_CANCELLED);
         }
 
-        Transaction cancellationTxn = cancelTxn.cancelTransaction();
+        Transaction cancellationTxn = cancelTxn.cancelTransaction();   
+        transactionRepository.save(cancellationTxn);     
 
-        return transactionRepository.save(cancellationTxn).getId();
+        return toAccrualResponse(cancellationTxn.getMember().getId(), toFlightResponse(cancellationTxn));
     }
 
     public AccrualResponseDto postAccrualRequest(AccrualRequestDto accrualRequestDto)  {
@@ -59,10 +61,7 @@ public class AccrualService {
         //TODO : considered the flight accrual request only for now.
         FlightAccrualResponseDto flightResponse = postFlightAccrualRequest(member, accrualRequestDto.getFlightRequest());
 
-        return AccrualResponseDto.builder()
-                                .flightResponse(flightResponse)
-                                .memberId(member.getId())
-                                .build();
+        return toAccrualResponse(member.getId(), flightResponse);
     }
 
     @Transactional
@@ -92,19 +91,37 @@ public class AccrualService {
         member.updateMember(accruedMileage);
         transactionRepository.save(txn);
 
-        return FlightAccrualResponseDto.builder().carrier(txn.getSourceSubType()).bookingClass(txn.getBookingClass())
-                                                .depAPO(txn.getDepAPO()).arrAPO(txn.getArrAPO()).depDate(txn.getDepartureDate())
-                                                .flightNumber(txn.getFlightNumber())
-                                                .build(); 
+        return toFlightResponse(txn); 
+    }    
+
+    public AccrualResponseDto toAccrualResponse(Long memberId, FlightAccrualResponseDto flightResponse) { 
+
+        return AccrualResponseDto.builder()
+                                .flightResponse(flightResponse)
+                                .memberId(memberId)
+                                .build();
+    } 
+
+    public FlightAccrualResponseDto toFlightResponse (Transaction txn) { 
+
+        return FlightAccrualResponseDto.builder()
+                                .carrier(txn.getSourceSubType())
+                                .bookingClass(txn.getBookingClass())
+                                .depAPO(txn.getDepAPO()).arrAPO(txn.getArrAPO()).depDate(txn.getDepartureDate())
+                                .flightNumber(txn.getFlightNumber())
+                                .build(); 
     }
 
     public int getMileageToAccrue(String carrier, String bookingClass, String depApo, String arrApo) {
+
         int tpmValue = getTpmValue(depApo, arrApo);
         int accrualRate = getAccrualRate(carrier, bookingClass);
 
         return Math.round(tpmValue * accrualRate / 100);
     }
+
     public int getAccrualRate(String carrier, String bookingClass) {
+
         AccrualRateChart bookingClassChart = accrualRateChartRepository.findAccrualRateByClass(carrier, bookingClass);
 
         if(bookingClassChart == null) { 
@@ -113,6 +130,7 @@ public class AccrualService {
 
         return bookingClassChart.getAccrualRate();
     }
+    
     public int getTpmValue(String depAPO, String arrAPO) {
         //TODO : when invoking tpmChartRepostiory.findBySegment, pass the current date as a parameter
         //       to get the active TPM at the moment.
