@@ -1,5 +1,6 @@
 package com.loyalty.jshan.web;
 
+import com.loyalty.jshan.global.apiResponse.ApiResponseWithSuccess;
 import com.loyalty.jshan.redemption.dto.CartResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,14 @@ public class CartControllerTest {
         String url = "http://localhost:" + port + "/api/v1/cart/" + memberId;
 
         //when
-        ResponseEntity<CartResponseDto> responseEntity = restTemplate.getForEntity(url, CartResponseDto.class);
+        ResponseEntity<ApiResponseWithSuccess> responseEntity = restTemplate.getForEntity(url, ApiResponseWithSuccess.class);
 
 
         //then
         System.out.println(responseEntity);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isInstanceOf(CartResponseDto.class);
+        assertThat(responseEntity.getBody()).isInstanceOf(ApiResponseWithSuccess.class);
 
 
     }

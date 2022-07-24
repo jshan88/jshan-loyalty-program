@@ -33,6 +33,10 @@ public class CartService {
     public CartResponseDto retrieveCartByMember(Long memberId) {
 
         Cart cart = cartRepository.findByMemberId(memberId);
+
+        if(cart == null) {
+            throw new ApiRequestException(ApiErrorCode.CART_NOT_FOUND);
+        }
         
         return toCartResponse(cart);
     }
@@ -66,7 +70,7 @@ public class CartService {
 
         return CartResponseDto.builder()
                 .id(cart.getId())
-                .expiryDate(cart.getExpiryDate())
+                .orderedDate(cart.getOrderedDate())
                 .totalCount(cart.getTotalCount())
                 .totalMileage(cart.getTotalMileage())
                 .flightItemList(flightList)

@@ -25,7 +25,7 @@ public class Cart extends CommonEntity {
     @JoinColumn(name="memberId", referencedColumnName = "id")
     private Member member;
 
-    private LocalDateTime expiryDate;
+    private LocalDateTime orderedDate;
     private int totalCount;
     private int totalMileage;
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // orphan removal?
@@ -50,12 +50,16 @@ public class Cart extends CommonEntity {
     }
 
     @Builder
-    public Cart(Member member, LocalDateTime expiryDate, int totalCount, int totalMileage, List<Item> itemList) {
+    public Cart(Member member, LocalDateTime orderedDate, int totalCount, int totalMileage, List<Item> itemList) {
         this.member = member;
-        this.expiryDate = expiryDate;
+        this.orderedDate = orderedDate;
         this.totalCount = totalCount;
         this.totalMileage = totalMileage;
         this.itemList = itemList;
+    }
+
+    public void updateOrderedDate() {
+        this.orderedDate = LocalDateTime.now();
     }
 
 }

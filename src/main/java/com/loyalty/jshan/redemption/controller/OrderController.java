@@ -6,6 +6,7 @@ import com.loyalty.jshan.redemption.dto.OrderResponseDto;
 import com.loyalty.jshan.redemption.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RequiredArgsConstructor
 @RestController

@@ -65,7 +65,7 @@ public class Order extends CommonEntity {
         return Order.builder()
                 .authNumber(this.authNumber)
                 .member(this.member)
-                .orderStatus(this.orderStatus)
+                .orderStatus(OrderStatus.REFUND)
                 .activeFlg("Y")
                 .redeemedMiles(0)
                 .refundMiles(this.redeemedMiles)

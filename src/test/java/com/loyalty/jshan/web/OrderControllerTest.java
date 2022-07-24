@@ -23,6 +23,7 @@ public class OrderControllerTest {
     @LocalServerPort
     private int port;
 
+
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -36,7 +37,7 @@ public class OrderControllerTest {
         //given
         OrderRequestDto requestDto = OrderRequestDto.builder()
                 .memberId(1L)
-                .cartId(1L)
+                .cartId(2L)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/order";
@@ -54,7 +55,7 @@ public class OrderControllerTest {
     public void orderRefundTest() {
 
         //given
-        String authNumber = "2022A0724211108498";
+        String authNumber = "2022A0724224903985";
 
         String url = "http://localhost:" + port + "/api/v1/order/" + authNumber;
         HttpEntity<String> requestEntity = new HttpEntity<>(authNumber);

@@ -70,6 +70,7 @@ public class OrderService {
 
 
         member.updateMember(cart.getTotalMileage()*-1);
+        cart.updateOrderedDate();
         orderRepository.save(order);
         transactionRepository.save(txn);
 
@@ -79,13 +80,15 @@ public class OrderService {
     @Transactional
     public OrderResponseDto cancelOrder(String authNumber) {
 
-        Order order = orderRepository.findOrderByAuthNumber(authNumber);
+        Order order = orderRepository.findOrderByAuthNumber(authNumber).orElseThrow(
+                () -> new ApiRequestException(ApiErrorCode.ORDER_NOT_FOUND));
 
         if(order.getOrderStatus().equals(OrderStatus.REFUND)) {
             throw new ApiRequestException(ApiErrorCode.ORDER_ALREADY_CANCELLED);
         }
 
-        Transaction txn = transactionRepository.findTransactionByOrderId(order.getId());
+        Transaction txn = transactionRepository.findTransactionByOrderId(order.getId())
+                .orElseThrow(()-> new ApiRequestException(ApiErrorCode.TRANSACTION_NOT_FOUND));
 
         Transaction cancellationTxn = txn.cancelTransaction();
         Order refundOrder = order.cancelOrder();

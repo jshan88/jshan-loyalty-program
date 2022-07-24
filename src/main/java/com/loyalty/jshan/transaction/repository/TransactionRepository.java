@@ -4,6 +4,8 @@ import com.loyalty.jshan.transaction.domain.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Optional;
+
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
     //TODO : Find the dupe record with the given parameters
@@ -13,5 +15,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     // look for the reference : https://jojoldu.tistory.com/516
 
     @Query(value="select t.* from Transaction t where t.order_Id = ?1", nativeQuery = true)
-    Transaction findTransactionByOrderId(Long orderId);
+    Optional<Transaction> findTransactionByOrderId(Long orderId);
 }

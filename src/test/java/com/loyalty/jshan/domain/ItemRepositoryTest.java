@@ -1,5 +1,7 @@
 package com.loyalty.jshan.domain;
 
+import com.loyalty.jshan.global.apiException.ApiErrorCode;
+import com.loyalty.jshan.global.apiException.ApiRequestException;
 import com.loyalty.jshan.redemption.domain.Cart;
 import com.loyalty.jshan.redemption.domain.item.Item;
 import com.loyalty.jshan.redemption.repository.CartRepository;

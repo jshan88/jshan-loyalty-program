@@ -12,6 +12,7 @@ public enum ApiErrorCode {
     NOT_ENOUGH_MILEAGE(HttpStatus.BAD_REQUEST, "Member does not have enough miles to redeem."),
     
     // 404 NOT FOUND
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "No Order found with the given auth"),
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "No member found with the given id."),
     CART_NOT_FOUND(HttpStatus.NOT_FOUND, "No cart found with the given id."),
     TRANSACTION_NOT_FOUND(HttpStatus.NOT_FOUND, "No transaction found with the given id."),
