@@ -65,6 +65,7 @@ public class CartService {
         });
 
         return CartResponseDto.builder()
+                .id(cart.getId())
                 .expiryDate(cart.getExpiryDate())
                 .totalCount(cart.getTotalCount())
                 .totalMileage(cart.getTotalMileage())

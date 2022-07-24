@@ -26,13 +26,16 @@ public class Order extends CommonEntity {
     @Column
     private OrderStatus orderStatus;
 
+    @Column(length = 1)
+    private String activeFlg;
+
     @Column
     private int redeemedMiles;
 
     @Column
     private int refundMiles;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="memberId", referencedColumnName = "id")
     private Member member;
 
@@ -41,12 +44,31 @@ public class Order extends CommonEntity {
     private Cart cart;
 
     @Builder
-    public Order(String authNumber, Member member, Cart cart, OrderStatus orderStatus, int redeemedMiles, int refundMiles) {
+    public Order(String authNumber, Member member, Cart cart, OrderStatus orderStatus, String activeFlg, int redeemedMiles, int refundMiles) {
         this.authNumber = authNumber;
         this.member = member;
         this.cart = cart;
         this.orderStatus = orderStatus;
+        this.activeFlg = activeFlg;
         this.redeemedMiles = redeemedMiles;
         this.refundMiles = refundMiles;
+    }
+
+    public Order cancelOrder() {
+
+        this.activeFlg = "N";
+        return generateRefundOrder();
+    }
+
+    private Order generateRefundOrder() {
+
+        return Order.builder()
+                .authNumber(this.authNumber)
+                .member(this.member)
+                .orderStatus(this.orderStatus)
+                .activeFlg("Y")
+                .redeemedMiles(0)
+                .refundMiles(this.redeemedMiles)
+                .build();
     }
 }

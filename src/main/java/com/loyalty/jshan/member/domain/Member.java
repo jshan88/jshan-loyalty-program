@@ -72,4 +72,5 @@ public class Member extends CommonEntity {
     public void updateMember(int mileage) {
         this.remainMileage += mileage;
     }
+
 }

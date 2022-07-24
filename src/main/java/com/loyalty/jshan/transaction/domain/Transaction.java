@@ -2,6 +2,7 @@ package com.loyalty.jshan.transaction.domain;
 
 import com.loyalty.jshan.global.CommonEntity;
 import com.loyalty.jshan.member.domain.Member;
+import com.loyalty.jshan.redemption.domain.Order;
 import com.loyalty.jshan.transaction.domain.enums.SourceType;
 import com.loyalty.jshan.transaction.domain.enums.TransactionStatus;
 import com.loyalty.jshan.transaction.domain.enums.TransactionSubType;
@@ -24,6 +25,10 @@ public class Transaction extends CommonEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId", referencedColumnName = "id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId", referencedColumnName = "id")
+    private Order order;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cancelledTxnId", referencedColumnName = "id")
@@ -57,11 +62,12 @@ public class Transaction extends CommonEntity {
     private int mileage;
 
     @Builder
-    public Transaction(Transaction cancelledTransaction, Member member, TransactionType txnType, TransactionSubType txnSubType,
+    public Transaction(Transaction cancelledTransaction, Member member, Order order, TransactionType txnType, TransactionSubType txnSubType,
                        TransactionStatus status, SourceType sourceType, String sourceSubType, String bookingClass,
                        String depAPO, String arrAPO, String departureDate, String flightNumber, int mileage) {
         this.cancelledTransaction = cancelledTransaction;
         this.member = member;
+        this.order = order;
         this.txnType = txnType;
         this.txnSubType = txnSubType;
         this.status = status;
@@ -89,7 +95,7 @@ public class Transaction extends CommonEntity {
 
         return generateCancellationTxn(nextTxnType);
     }
-    public Transaction generateCancellationTxn(TransactionType nextTxnType) {
+    private Transaction generateCancellationTxn(TransactionType nextTxnType) {
 
         return Transaction.builder()
                 .cancelledTransaction(this)

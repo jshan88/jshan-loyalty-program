@@ -13,15 +13,16 @@ import java.util.List;
 @NoArgsConstructor
 public class CartResponseDto {
 
+    private Long id;
     private LocalDateTime expiryDate;
     private int totalCount;
     private int totalMileage;
     private List<FlightItemResponseDto> flightItemList = new ArrayList<>();
 
     @Builder
-    public CartResponseDto(LocalDateTime expiryDate,
+    public CartResponseDto(Long id, LocalDateTime expiryDate,
                            int totalCount, int totalMileage, List<FlightItemResponseDto> flightItemList){
-
+        this.id = id;
         this.expiryDate = expiryDate;
         this.totalCount = totalCount;
         this.totalMileage = totalMileage;

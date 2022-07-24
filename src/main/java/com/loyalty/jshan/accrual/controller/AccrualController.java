@@ -27,6 +27,7 @@ public class AccrualController {
         return ApiResponseWithSuccess.createApiResponse(responseDto);
 
     }
+
     @PutMapping("/api/v1/accrual/{accrualId}")
     public ApiResponseWithSuccess<AccrualResponseDto> accrualCancelRequest(@PathVariable Long accrualId) {
 

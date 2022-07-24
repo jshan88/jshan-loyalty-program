@@ -21,7 +21,7 @@ public class Cart extends CommonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="memberId", referencedColumnName = "id")
     private Member member;
 
@@ -47,7 +47,6 @@ public class Cart extends CommonEntity {
             this.totalCount += lst.getItemCount();
             this.totalMileage += (lst.getMileage() * lst.getItemCount());
         });
-        
     }
 
     @Builder

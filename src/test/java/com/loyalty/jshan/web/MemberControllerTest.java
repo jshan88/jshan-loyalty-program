@@ -172,10 +172,10 @@ public class MemberControllerTest {
 
 
 
-        assertThat(members.get(1).getFirstName()).isEqualTo(firstName);
+        assertThat(members.get(0).getFirstName()).isEqualTo(firstName);
     ///    assertThat(members.get(0).getContact().getEmailAddress()).isEqualTo("jshan88@gmail.com");
 
-        System.out.println(members.get(1).getAddressList().get(1).getAddress1());
-        System.out.println(members.get(1).getContact().getEmailAddress());
+        System.out.println(members.get(0).getAddressList().get(1).getAddress1());
+        System.out.println(members.get(0).getContact().getEmailAddress());
     }
 }

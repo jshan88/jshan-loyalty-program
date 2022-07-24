@@ -72,7 +72,7 @@ public class AccrualControllerTest {
 
         FlightAccrualRequestDto flightRequestDto = FlightAccrualRequestDto.builder()
                 .carrier("KE")
-                .depDate("20220811")
+                .depDate("20221211")
                 .depAPO("JFK")
                 .arrAPO("ICN")
                 .bookingClass("J")

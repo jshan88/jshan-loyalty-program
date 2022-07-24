@@ -70,4 +70,5 @@ public class MemberService {
                     .addressResponseDtoList(addressService.toAddressResponseList(member.getAddressList()))
                     .build();
     }
+
 }

@@ -11,17 +11,17 @@ import lombok.NoArgsConstructor;
 public class OrderRequestDto {
 
     private Long memberId;
-    private String requestType; // Issue, Reissue, Refund, Void
-    private int redeemMileage;
-    private int refundMileage;
-    private CartRequestDto cart; 
+    private Long cartId;
+//    private String requestType; // Issue, Reissue, Refund, Void
+//    private int redeemMileage;
+//    private int refundMileage;
 
     @Builder
-    public OrderRequestDto (Long memberId, String requestType, int redeemMileage, int refundMileage, CartRequestDto cart) {
+    public OrderRequestDto (Long memberId, Long cartId  ) {
         this.memberId = memberId;
-        this.requestType = requestType;
-        this.redeemMileage = redeemMileage;
-        this.refundMileage = refundMileage;
-        this.cart = cart;
+        this.cartId = cartId;
+//        this.requestType = requestType;
+//        this.redeemMileage = redeemMileage;
+//        this.refundMileage = refundMileage;
     }
 }
