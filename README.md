@@ -1,8 +1,8 @@
 # jshan-loyalty-program
 simple loyalty program - a small, side project that i'm wokring on off-work. (toy project)
 
-# Current Process ; 20%
-■■■■■■■■■■■#######################################################
+# Current Process ; 25%
+■■■■■■■■■■■■■■■##################################################
 1. Done with the basic framework set-up. 
 2. APIs implemented so far. 
  
@@ -10,7 +10,7 @@ simple loyalty program - a small, side project that i'm wokring on off-work. (to
     
     ~ accrual(적립) : accrual request(post) / accrual cancel(put) apis.
     
-    ~ redemption(소진) : postCart / getCart
+    ~ redemption(소진) : postCart / getCart / orderRequest / orderRefund
 
 # DB Table Schema for the program. 
 - The program will be implemented based on the below schema. (refer to the below links)
