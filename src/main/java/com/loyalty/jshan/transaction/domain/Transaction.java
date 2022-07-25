@@ -22,14 +22,6 @@ public class Transaction extends CommonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId", referencedColumnName = "id")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId", referencedColumnName = "id")
-    private Order order;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cancelledTxnId", referencedColumnName = "id")
     private Transaction cancelledTransaction;
@@ -60,6 +52,14 @@ public class Transaction extends CommonEntity {
     private String flightNumber;
 
     private int mileage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId", referencedColumnName = "id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId", referencedColumnName = "id")
+    private Order order;
 
     @Builder
     public Transaction(Transaction cancelledTransaction, Member member, Order order, TransactionType txnType, TransactionSubType txnSubType,

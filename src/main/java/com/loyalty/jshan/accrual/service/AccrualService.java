@@ -67,12 +67,10 @@ public class AccrualService {
     @Transactional
     public FlightAccrualResponseDto postFlightAccrualRequest(Member member, FlightAccrualRequestDto requestDto) {
 
-        //TODO : dupe check. create a new method in transactionRepository .
+        //TODO : dupe check. create a new method in transactionRepository.
         int accruedMileage = getMileageToAccrue(requestDto.getCarrier(), requestDto.getBookingClass(),
                                                 requestDto.getDepAPO(), requestDto.getArrAPO());
 
-        //TODO : Status to be "In-progress",
-        //  if there's an engine that runs at the back and process those that are in-progress status
         Transaction txn = Transaction.builder()
                                 .member(member)
                                 .txnType(TransactionType.ACCRUAL)
