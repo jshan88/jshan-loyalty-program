@@ -1,5 +1,5 @@
 # jshan-loyalty-program
-simple loyalty program - a small, side project that i'm wokring on off-work. (toy project)
+simple loyalty program - a small, side project that i'm wokring on off-work.
 
 # Current Process ; 25%
 ■■■■■■■■■■■■■■■##################################################
@@ -21,5 +21,4 @@ simple loyalty program - a small, side project that i'm wokring on off-work. (to
 # Application is being implemented with... 
 1. Java / Springboot 
 2. Spring data JPA
-
- 
+3. Deployed in private AWS env. (ECS Fargate, Postgresql)
